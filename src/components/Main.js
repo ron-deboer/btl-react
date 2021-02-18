@@ -12,8 +12,15 @@ import Codes from './Codes';
 import Items from './Items';
 
 import { fakeAuth } from '../_services/Fakeauth';
+import { FakeDataLoader } from '../_helpers/fake-data';
+import { InitFakeBackend } from '../_helpers/fake-backend';
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+        FakeDataLoader();
+        InitFakeBackend();
+    }
     render() {
         return (
             <HashRouter>

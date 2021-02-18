@@ -4,13 +4,23 @@ import { Redirect } from 'react-router-dom';
 import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
 
+import AuthService from '../_services/Authservice';
+
 class Login extends Component {
-    state = { redirectToReferrer: false, error: '' };
+    state = { redirectToReferrer: false, username: 'admin', password: 'admin', error: '' };
+
+    handleChange = (name, e) => {
+        let data = this.state;
+        data[name] = e.target.value;
+        this.setState(data);
+    };
 
     handleLogin = () => {
-        fakeAuth.authenticate(() => {
-            MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
-            this.setState({ redirectToReferrer: true });
+        AuthService.login(this.state.username, this.state.password).then((resp) => {
+            fakeAuth.authenticate(() => {
+                MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
+                this.setState({ redirectToReferrer: true });
+            });
         });
     };
 
@@ -45,6 +55,8 @@ class Login extends Component {
                                     placeholder="User Name"
                                     required
                                     minLength="2"
+                                    value={this.state.username}
+                                    onChange={(e) => this.handleChange('username', e)}
                                 />
                             </div>
                             <div className="form-group">
@@ -55,6 +67,8 @@ class Login extends Component {
                                     placeholder=""
                                     required
                                     minLength="2"
+                                    value={this.state.password}
+                                    onChange={(e) => this.handleChange('password', e)}
                                 />
                             </div>
                             <div className="form-group">
