@@ -1,3 +1,3 @@
 export default {
-    apiUrl: 'https://localhost:/v1',
+    apiUrl: 'https://localhost:1314/v1',
 };

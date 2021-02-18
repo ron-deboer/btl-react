@@ -8,21 +8,27 @@ import AuthService from '../_services/Authservice';
 
 class Login extends Component {
     state = { redirectToReferrer: false, username: 'admin', password: 'admin', error: '' };
+    authService = AuthService.instance;
 
-    handleChange = (name, e) => {
+    constructor(props) {
+        super(props);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    handleChange(name, e) {
         let data = this.state;
         data[name] = e.target.value;
         this.setState(data);
-    };
+    }
 
-    handleLogin = () => {
-        AuthService.login(this.state.username, this.state.password).then((resp) => {
-            fakeAuth.authenticate(() => {
-                MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
-                this.setState({ redirectToReferrer: true });
-            });
+    handleLogin() {
+        this.authService.login(this.state.username, this.state.password).then((resp) => {
+            // fakeAuth.authenticate(() => {
+            //     MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
+            //     this.setState({ redirectToReferrer: true });
+            // });
         });
-    };
+    }
 
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } };
