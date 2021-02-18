@@ -13,13 +13,13 @@ export function InitFakeBackend() {
             function handleRoute() {
                 switch (true) {
                     case url.includes('/user/'):
-                        return this.handleUserRoute(url, method);
+                        return handleUserRoute(url, method);
                         break;
                     case url.includes('/code/'):
-                        // return this.handleCodeRoute(url, method);
+                        // return handleCodeRoute(url, method);
                         break;
                     case url.includes('/item/'):
-                        // return this.handleItemRoute(url, method);
+                        // return handleItemRoute(url, method);
                         break;
                     default:
                         return realFetch(url, opts)
@@ -35,16 +35,16 @@ export function InitFakeBackend() {
                 const dtype = 'users';
                 switch (true) {
                     case url.endsWith('/authenticate') && method === 'POST':
-                        return this.authenticate(body.dat);
+                        return authenticate(body.dat);
                         break;
                     case url.endsWith('/update') && method === 'POST':
-                        return this.doUpdate(body, dtype);
+                        return doUpdate(body, dtype);
                         break;
                     case url.endsWith('/insert') && method === 'POST':
-                        return this.doInsert(body, dtype);
+                        return doInsert(body, dtype);
                         break;
                     case url.endsWith('/getall') && method === 'GET':
-                        return this.doGetAll(dtype);
+                        return doGetAll(dtype);
                         break;
                     default:
                         return realFetch(url, opts)
@@ -74,6 +74,21 @@ export function InitFakeBackend() {
                     token: `dummy-jwt-token.${user.id}`,
                     boardcode: user.boardcode,
                 });
+            }
+            /**
+             * update existing row
+             */
+            function doUpdate(dat, dtype) {
+                let row = db[dtype].find((x) => x.id === dat.id);
+                Object.keys(dat).forEach((fld) => {
+                    if (fld !== 'id') {
+                        row[fld] = dat[fld];
+                    }
+                });
+                setTimeout(() => {
+                    persistDb();
+                }, 250);
+                return ok({});
             }
             /**
              * insert new row

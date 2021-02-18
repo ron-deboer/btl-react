@@ -23,7 +23,7 @@ class Login extends Component {
 
     handleLogin() {
         this.authService.login(this.state.username, this.state.password).then((resp) => {
-            // fakeAuth.authenticate(() => {
+            console.log('1111', resp);
             //     MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
             //     this.setState({ redirectToReferrer: true });
             // });

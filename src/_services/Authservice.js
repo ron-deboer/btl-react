@@ -16,6 +16,7 @@ class AuthService {
         return this[singleton];
     }
 
+    user = null;
     isAuthenticated = false;
     userService = UserService.instance;
 
@@ -23,14 +24,11 @@ class AuthService {
         this.isAuthenticated = false;
         let enc = CryptoJS.Rabbit.encrypt(`${username}.${password}`, 'QprU5OzwntBSJFfo6b6XRByY8G8cQELn');
         const dat = enc.toString();
-        return this.userService.authenticate({ data: dat }).then(
+        return this.userService.authenticate({ dat: dat }).then(
             (user) => {
-                console.log('2222', user);
-                // this.user = user;
-                // this.msgBusService.broadcast(EventType.Refresh, {});
-                // sessionStorage.setItem('user', JSON.stringify(user));
-                // this.authenticated = true;
-                // this.router.navigate([this.redirectUrl]);
+                this.user = user;
+                sessionStorage.setItem('user', JSON.stringify(user));
+                this.isAuthenticated = true;
                 return true;
             },
             (err) => {

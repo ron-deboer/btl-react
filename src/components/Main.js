@@ -47,7 +47,6 @@ function PrivateRoute({ component: Component, ...rest }) {
         <Route
             {...rest}
             render={(props) => {
-                console.log('1111', fakeAuth.isAuthenticated);
                 if (fakeAuth.isAuthenticated) {
                     return <Component {...props} />;
                 } else {
