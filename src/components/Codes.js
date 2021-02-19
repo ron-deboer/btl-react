@@ -40,7 +40,7 @@ class Codes extends Component {
         return (
             <div>
                 <h5>Codes</h5>
-                <DataTable columns={this.columns} data={this.codes} />
+                <DataTable striped="true" columns={this.columns} data={this.codes} />
             </div>
         );
     }

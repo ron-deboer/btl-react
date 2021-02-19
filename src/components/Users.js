@@ -44,7 +44,7 @@ class Users extends Component {
         return (
             <div>
                 <h5>Users</h5>
-                <DataTable columns={this.columns} data={this.users} />
+                <DataTable striped="true" columns={this.columns} data={this.users} />
             </div>
         );
     }

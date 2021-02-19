@@ -55,7 +55,7 @@ class Reports extends Component {
         return (
             <div>
                 <h5>Reports</h5>
-                <DataTable columns={this.columns} data={this.items} />
+                <DataTable striped="true" columns={this.columns} data={this.items} />
             </div>
         );
     }
