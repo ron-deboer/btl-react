@@ -1,6 +1,20 @@
 import config from '../config';
 
-export default class UserService {
+const singleton = Symbol();
+const singletonEnforcer = Symbol();
+
+class UserService {
+    // force this class to be a singleton
+    constructor(enforcer) {
+        if (enforcer !== singletonEnforcer) alert('Cannot construct singleton');
+    }
+    static get instance() {
+        if (!this[singleton]) {
+            this[singleton] = new UserService(singletonEnforcer);
+        }
+        return this[singleton];
+    }
+
     getAll() {
         const url = `${config.apiUrl}/user/getall`;
         return fetch(url).then((response) => response.json());
@@ -13,7 +27,9 @@ export default class UserService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/user/authenticate`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => {
+            return response.json();
+        });
     }
 
     updateUser(data) {
@@ -36,3 +52,5 @@ export default class UserService {
         return fetch(url, requestOptions).then((response) => response.json());
     }
 }
+
+export default UserService;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { fakeAuth } from '../_services/Fakeauth';
+import { Route, NavLink, HashRouter, Redirect } from 'react-router-dom';
+import AuthService from '../_services/Authservice';
 import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
 
@@ -15,15 +15,22 @@ class Logout extends Component {
     }
 
     render() {
-        fakeAuth.signout(null);
+        AuthService.instance.logout();
         setTimeout(() => {
-            MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: false });
+            MessageBus.emit(AppConstants.MSG_LOGGED_IN, {
+                isLoggedIn: false,
+                user: { name: 'Not Logged In' },
+            });
         }, 100);
         return (
             <div>
                 <p>You are logged out</p>
                 <p>
-                    Click <a href="#">here</a> to login.
+                    Click{' '}
+                    <NavLink exact to="/home">
+                        Users
+                    </NavLink>{' '}
+                    to login.
                 </p>
             </div>
         );

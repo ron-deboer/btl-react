@@ -5,11 +5,11 @@ import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
 
 class Header extends Component {
-    state = { isLoggedIn: false, user: { name: 'Ron deBoer' } };
+    state = { isLoggedIn: false, user: { name: 'Not Logged In' } };
 
     componentDidMount() {
         MessageBus.listenFor(AppConstants.MSG_LOGGED_IN, (data) => {
-            this.setState({ isLoggedIn: data.payload });
+            this.setState(data);
         });
     }
 
