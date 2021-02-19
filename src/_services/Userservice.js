@@ -16,8 +16,13 @@ class UserService {
     }
 
     getAll() {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: null,
+        };
         const url = `${config.apiUrl}/user/getall`;
-        return fetch(url).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => response.json());
     }
 
     authenticate(data) {

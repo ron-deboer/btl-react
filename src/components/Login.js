@@ -24,7 +24,6 @@ class Login extends Component {
     handleLogin() {
         this.authService.login(this.state.username, this.state.password).then((resp) => {
             if (resp.isLoggedIn) {
-                console.log('login successful >>>', resp);
                 MessageBus.emit(AppConstants.MSG_LOGGED_IN, resp);
                 this.setState({ redirectToReferrer: true });
             }
@@ -34,7 +33,6 @@ class Login extends Component {
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } };
         const { redirectToReferrer } = this.state;
-        console.log('referrer >>>', from);
         if (redirectToReferrer) {
             return <Redirect to={from} />;
         }
