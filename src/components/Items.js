@@ -1,18 +1,61 @@
 import React, { Component } from 'react';
+import DataTable from 'react-data-table-component';
+
+import ItemService from '../_services/Itemservice';
 
 class Items extends Component {
+    state = { itemService: ItemService.instance, loading: true };
+    items = [];
+    columns = [
+        {
+            name: 'Id',
+            selector: 'id',
+            sortable: true,
+        },
+        {
+            name: 'Title',
+            selector: 'title',
+            sortable: true,
+        },
+        {
+            name: 'Board Code',
+            selector: 'boardcode',
+            sortable: true,
+        },
+        {
+            name: 'Size',
+            selector: 'sizecode',
+            sortable: true,
+        },
+        {
+            name: 'Status',
+            selector: 'statuscode',
+            sortable: true,
+        },
+        {
+            name: 'Assigned to',
+            selector: 'assignedtouser',
+            sortable: true,
+        },
+        {
+            name: 'Project Code',
+            selector: 'projectcode',
+            sortable: true,
+        },
+    ];
+    componentDidMount() {
+        this.state.itemService.getAll().then((resp) => {
+            this.items = JSON.parse(resp);
+            console.table(this.items);
+            this.setState({ loading: false });
+        });
+    }
+
     render() {
         return (
             <div>
-                <h2>ITEMS</h2>
-                <p>
-                    Cras facilisis urna ornare ex volutpat, et convallis erat elementum. Ut aliquam, ipsum
-                    vitae gravida suscipit, metus dui bibendum est, eget rhoncus nibh metus nec massa.
-                    Maecenas hendrerit laoreet augue nec molestie. Cum sociis natoque penatibus et magnis dis
-                    parturient montes, nascetur ridiculus mus.
-                </p>
-
-                <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
+                <h5>Items</h5>
+                <DataTable columns={this.columns} data={this.items} />
             </div>
         );
     }

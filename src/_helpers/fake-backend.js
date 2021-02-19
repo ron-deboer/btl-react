@@ -16,10 +16,10 @@ export function InitFakeBackend() {
                         return handleUserRoute(url, method);
                         break;
                     case url.includes('/code/'):
-                        // return handleCodeRoute(url, method);
+                        return handleCodeRoute(url, method);
                         break;
                     case url.includes('/item/'):
-                        // return handleItemRoute(url, method);
+                        return handleItemRoute(url, method);
                         break;
                     default:
                         return realFetch(url, opts)
@@ -53,6 +53,51 @@ export function InitFakeBackend() {
                         break;
                 }
             }
+            /**
+             * code route handler
+             */
+            function handleCodeRoute(url, method) {
+                const dtype = 'code';
+                switch (true) {
+                    case url.endsWith('/update') && method === 'POST':
+                        return doUpdate(body, dtype);
+                        break;
+                    case url.endsWith('/insert') && method === 'POST':
+                        return doInsert(body, dtype);
+                        break;
+                    case url.endsWith('/getall') && method === 'GET':
+                        return doGetAll(dtype);
+                        break;
+                    default:
+                        return realFetch(url, opts)
+                            .then((response) => resolve(response))
+                            .catch((error) => reject(error));
+                        break;
+                }
+            }
+            /**
+             * code route handler
+             */
+            function handleItemRoute(url, method) {
+                const dtype = 'item';
+                switch (true) {
+                    case url.endsWith('/update') && method === 'POST':
+                        return doUpdate(body, dtype);
+                        break;
+                    case url.endsWith('/insert') && method === 'POST':
+                        return doInsert(body, dtype);
+                        break;
+                    case url.endsWith('/getall') && method === 'GET':
+                        return doGetAll(dtype);
+                        break;
+                    default:
+                        return realFetch(url, opts)
+                            .then((response) => resolve(response))
+                            .catch((error) => reject(error));
+                        break;
+                }
+            }
+
             /**
              * authenticate user
              */

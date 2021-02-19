@@ -16,7 +16,7 @@ const Router = (props) => (
         <Route exact path="/login" component={Login} />
         <Route exact path="/logout" component={Logout} />
 
-        <PrivateRoute path="/kanban" component={Kanban} />
+        <PrivateRoute path="/kanban" component={Home} />
         <PrivateRoute path="/reports" component={Reports} />
         <PrivateRoute path="/users" component={Users} />
         <PrivateRoute path="/codes" component={Codes} />
