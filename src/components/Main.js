@@ -11,7 +11,7 @@ import Users from './Users';
 import Codes from './Codes';
 import Items from './Items';
 
-import { fakeAuth } from '../_services/Fakeauth';
+import AuthService from '../_services/Authservice';
 import { FakeDataLoader } from '../_helpers/fake-data';
 import { InitFakeBackend } from '../_helpers/fake-backend';
 
@@ -21,6 +21,7 @@ class Main extends Component {
         FakeDataLoader();
         InitFakeBackend();
     }
+
     render() {
         return (
             <HashRouter>
@@ -42,12 +43,12 @@ class Main extends Component {
     }
 }
 
-function PrivateRoute({ component: Component, ...rest }) {
+function PrivateRoute({ component, ...rest }) {
     return (
         <Route
             {...rest}
             render={(props) => {
-                if (fakeAuth.isAuthenticated) {
+                if (AuthService.instance.isAuthenticated) {
                     return <Component {...props} />;
                 } else {
                     return (

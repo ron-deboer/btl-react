@@ -27,7 +27,9 @@ class UserService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/user/authenticate`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => {
+            return response.json();
+        });
     }
 
     updateUser(data) {

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { fakeAuth } from '../_services/Fakeauth';
+import AuthService from '../_services/Authservice';
 import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
 
 class Logout extends Component {
+    authService = AuthService.instance;
     handleLoginClick() {
         <Redirect
             to={{
@@ -15,7 +16,7 @@ class Logout extends Component {
     }
 
     render() {
-        fakeAuth.signout(null);
+        this.authService.Logout();
         setTimeout(() => {
             MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: false });
         }, 100);

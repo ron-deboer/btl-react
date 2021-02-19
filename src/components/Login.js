@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { fakeAuth } from '../_services/Fakeauth';
 import { Redirect } from 'react-router-dom';
 import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
@@ -23,17 +22,16 @@ class Login extends Component {
 
     handleLogin() {
         this.authService.login(this.state.username, this.state.password).then((resp) => {
-            console.log('1111', resp);
-            //     MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
-            //     this.setState({ redirectToReferrer: true });
-            // });
+            console.log('login successful >>>', resp);
+            MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
+            this.setState({ redirectToReferrer: true });
         });
     }
 
     render() {
         const { from } = this.props.location.state || { from: { pathname: '/' } };
         const { redirectToReferrer } = this.state;
-
+        console.log('referrer >>>', from);
         if (redirectToReferrer) {
             return <Redirect to={from} />;
         }

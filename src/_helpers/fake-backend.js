@@ -111,18 +111,21 @@ export function InitFakeBackend() {
              * util functions
              */
             function ok(body) {
-                resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(body)) });
+                resolve({
+                    ok: true,
+                    json: () => Promise.resolve(JSON.stringify(body)),
+                });
             }
 
             function unauthorized() {
                 resolve({
                     status: 401,
-                    text: () => Promise.resolve(JSON.stringify({ message: 'Unauthorized' })),
+                    json: () => Promise.resolve(JSON.stringify({ message: 'Unauthorized' })),
                 });
             }
 
             function error(message) {
-                resolve({ status: 400, text: () => Promise.resolve(JSON.stringify({ message })) });
+                resolve({ status: 400, json: () => Promise.resolve(JSON.stringify({ message })) });
             }
 
             function idFromUrl() {
