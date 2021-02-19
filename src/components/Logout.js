@@ -28,7 +28,7 @@ class Logout extends Component {
                 <p>
                     Click{' '}
                     <NavLink exact to="/home">
-                        Users
+                        HERE
                     </NavLink>{' '}
                     to login.
                 </p>
