@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Main from './Main';
 import Home from './Home';
-import Login from './Login';
-import Logout from './Logout';
-import Kanban from './Kanban';
 import Reports from './Reports';
 import Users from './Users';
 import Codes from './Codes';
 import Items from './Items';
+import Login from './Login';
+import Logout from './Logout';
 import AuthService from '../_services/Authservice';
 
 const Router = (props) => (
