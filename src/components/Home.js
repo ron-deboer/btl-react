@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
-import UserService from '../_services/Userservice';
+import ItemService from '../_services/Itemservice';
 
 class Home extends Component {
-    state = { userService: UserService.instance, loading: true };
-    users = [];
+    state = { itemService: ItemService.instance, loading: true };
+    items = [];
     columns = [
         {
             name: 'Id',
@@ -13,29 +13,39 @@ class Home extends Component {
             sortable: true,
         },
         {
-            name: 'User Name',
-            selector: 'username',
+            name: 'Title',
+            selector: 'title',
             sortable: true,
         },
         {
-            name: 'Name',
-            selector: 'name',
+            name: 'Board Code',
+            selector: 'boardcode',
             sortable: true,
         },
         {
-            name: 'Email',
-            selector: 'email',
+            name: 'Size',
+            selector: 'sizecode',
             sortable: true,
         },
         {
-            name: 'Role',
-            selector: 'role',
+            name: 'Status',
+            selector: 'statuscode',
+            sortable: true,
+        },
+        {
+            name: 'Assigned to',
+            selector: 'assignedtouser',
+            sortable: true,
+        },
+        {
+            name: 'Project Code',
+            selector: 'projectcode',
             sortable: true,
         },
     ];
     componentDidMount() {
-        this.state.userService.getAll().then((resp) => {
-            this.users = JSON.parse(resp);
+        this.state.itemService.getAll().then((resp) => {
+            this.items = JSON.parse(resp);
             this.setState({ loading: false });
         });
     }
@@ -44,7 +54,7 @@ class Home extends Component {
         return (
             <div>
                 <h5>Kanban</h5>
-                <DataTable columns={this.columns} data={this.users} />
+                <DataTable striped="true" columns={this.columns} data={this.items} />
             </div>
         );
     }
