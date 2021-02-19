@@ -19,7 +19,7 @@ class Logout extends Component {
         setTimeout(() => {
             MessageBus.emit(AppConstants.MSG_LOGGED_IN, {
                 isLoggedIn: false,
-                user: { name: 'Not Logged In' },
+                user: { name: '' },
             });
         }, 100);
         return (
