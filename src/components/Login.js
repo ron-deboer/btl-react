@@ -4,6 +4,7 @@ import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
 
 import AuthService from '../_services/Authservice';
+import Home from './Home';
 
 class Login extends Component {
     state = { redirectToReferrer: false, username: 'admin', password: 'admin', error: '' };
@@ -22,9 +23,11 @@ class Login extends Component {
 
     handleLogin() {
         this.authService.login(this.state.username, this.state.password).then((resp) => {
-            console.log('login successful >>>', resp);
-            MessageBus.emit(AppConstants.MSG_LOGGED_IN, { payload: true });
-            this.setState({ redirectToReferrer: true });
+            if (resp.isLoggedIn) {
+                console.log('login successful >>>', resp);
+                MessageBus.emit(AppConstants.MSG_LOGGED_IN, resp);
+                this.setState({ redirectToReferrer: true });
+            }
         });
     }
 

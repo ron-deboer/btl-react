@@ -17,28 +17,38 @@ class AuthService {
     }
 
     user = null;
-    isAuthenticated = false;
+    authenticated = false;
     userService = UserService.instance;
 
+    get isAuthenticated() {
+        if (!this[singleton]) {
+            this[singleton] = new AuthService(singletonEnforcer);
+        }
+        return this.authenticated;
+    }
+
     login(username, password) {
-        this.isAuthenticated = false;
+        this.authenticated = false;
         let enc = CryptoJS.Rabbit.encrypt(`${username}.${password}`, 'QprU5OzwntBSJFfo6b6XRByY8G8cQELn');
         const dat = enc.toString();
         return this.userService.authenticate({ dat: dat }).then(
             (user) => {
-                this.user = user;
-                sessionStorage.setItem('user', JSON.stringify(user));
-                this.isAuthenticated = true;
-                return true;
+                this.user = JSON.parse(user);
+                sessionStorage.setItem('user', JSON.stringify(this.user));
+                this.authenticated = true;
+                return { isLoggedIn: true, user: { name: this.user.name } };
             },
             (err) => {
                 this.logout();
-                return false;
+                return { isLoggedIn: false, user: { name: 'Not Logged In' } };
             }
         );
     }
 
-    logout() {}
+    logout() {
+        sessionStorage.removeItem('user');
+        this.authenticated = false;
+    }
 }
 
 export default AuthService;
