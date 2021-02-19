@@ -40,7 +40,7 @@ class AuthService {
             },
             (err) => {
                 this.logout();
-                return { isLoggedIn: false, user: { name: 'Not Logged In' } };
+                return { isLoggedIn: false, user: { name: '' } };
             }
         );
     }

@@ -5,7 +5,7 @@ import AppConstants from '../appconstants';
 import MessageBus from '../_services/Messagebus';
 
 class Header extends Component {
-    state = { isLoggedIn: false, user: { name: 'Not Logged In' } };
+    state = { isLoggedIn: false, user: { name: '' } };
 
     componentDidMount() {
         MessageBus.listenFor(AppConstants.MSG_LOGGED_IN, (data) => {
