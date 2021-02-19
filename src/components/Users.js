@@ -1,18 +1,50 @@
 import React, { Component } from 'react';
+import DataTable from 'react-data-table-component';
+
+import UserService from '../_services/Userservice';
 
 class Users extends Component {
+    state = { userService: UserService.instance, loading: true };
+    users = [];
+    columns = [
+        {
+            name: 'Id',
+            selector: 'id',
+            sortable: true,
+        },
+        {
+            name: 'User Name',
+            selector: 'username',
+            sortable: true,
+        },
+        {
+            name: 'Name',
+            selector: 'name',
+            sortable: true,
+        },
+        {
+            name: 'Email',
+            selector: 'email',
+            sortable: true,
+        },
+        {
+            name: 'Role',
+            selector: 'role',
+            sortable: true,
+        },
+    ];
+    componentDidMount() {
+        this.state.userService.getAll().then((resp) => {
+            this.users = JSON.parse(resp);
+            this.setState({ loading: false });
+        });
+    }
+
     render() {
         return (
             <div>
-                <h2>USERS</h2>
-                <p>
-                    Cras facilisis urna ornare ex volutpat, et convallis erat elementum. Ut aliquam, ipsum
-                    vitae gravida suscipit, metus dui bibendum est, eget rhoncus nibh metus nec massa.
-                    Maecenas hendrerit laoreet augue nec molestie. Cum sociis natoque penatibus et magnis dis
-                    parturient montes, nascetur ridiculus mus.
-                </p>
-
-                <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
+                <h5>Users</h5>
+                <DataTable columns={this.columns} data={this.users} />
             </div>
         );
     }
