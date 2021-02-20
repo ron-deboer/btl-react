@@ -4,6 +4,7 @@ import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
 
 import Column from './Column';
+import SelectCode from './Selectcode';
 
 class Home extends Component {
     state = {
@@ -61,34 +62,16 @@ class Home extends Component {
                                 Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
                             </h5>
                         </div>
-                        <div className="select">
-                            <span className="text">Kanban Board</span>
-                            <select
-                                className="form-control-inline form-control-sm dropdown"
-                                id="boardcode"
-                                name="boardcode"
-                            >
-                                {this.getSelectOptions('id', 'BOARD').map((c) => (
-                                    <option key={c.key} value={c.code}>
-                                        {c.code}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="select">
-                            <span className="text">Project</span>
-                            <select
-                                className="form-control-inline form-control-sm dropdown"
-                                id="projectcode"
-                                name="projectcode"
-                            >
-                                {this.getSelectOptions('id', 'PROJECT').map((c) => (
-                                    <option key={c.key} value={c.code}>
-                                        {c.code}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                        <SelectCode
+                            caption="Kanban Board"
+                            name="boardcode"
+                            options={this.getSelectOptions('id', 'BOARD')}
+                        />
+                        <SelectCode
+                            caption="Project"
+                            name="projectcode"
+                            options={this.getSelectOptions('id', 'PROJECT')}
+                        />
                     </div>
                 </form>
                 <div className="main">
