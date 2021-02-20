@@ -107,11 +107,13 @@ class Home extends Component {
                                     </button>
                                 </div>
                             </div>
-                            <ul className="items">
+                            <ul className="open-items items">
                                 {this.cards
-                                    .filter((x) => x.statuscode === 'OPEN')
+                                    .filter((x) => x.statuscode === 'Open')
                                     .map((card, i) => (
-                                        <Card key={i} item={card} />
+                                        <li>
+                                            <Card key={i} item={card} />
+                                        </li>
                                     ))}
                             </ul>
                         </div>
@@ -129,6 +131,15 @@ class Home extends Component {
                                     </button>
                                 </div>
                             </div>
+                            <ul className="open-items items">
+                                {this.cards
+                                    .filter((x) => x.statuscode === 'Assigned')
+                                    .map((card, i) => (
+                                        <li>
+                                            <Card key={i} item={card} />
+                                        </li>
+                                    ))}
+                            </ul>
                         </div>
                         <div className="column">
                             <div className="header">
@@ -144,6 +155,15 @@ class Home extends Component {
                                     </button>
                                 </div>
                             </div>
+                            <ul className="open-items items">
+                                {this.cards
+                                    .filter((x) => x.statuscode === 'Review')
+                                    .map((card, i) => (
+                                        <li>
+                                            <Card key={i} item={card} />
+                                        </li>
+                                    ))}
+                            </ul>
                         </div>
                         <div className="column">
                             <div className="header">
@@ -159,6 +179,15 @@ class Home extends Component {
                                     </button>
                                 </div>
                             </div>
+                            <ul className="open-items items">
+                                {this.cards
+                                    .filter((x) => x.statuscode === 'Closed')
+                                    .map((card, i) => (
+                                        <li>
+                                            <Card key={i} item={card} />
+                                        </li>
+                                    ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
