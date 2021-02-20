@@ -1,0 +1,89 @@
+.card {
+    border-radius: 4px;
+    box-shadow: 2px 2px #ccc;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 20px;
+    font-size: 0.7vw;
+    .item-card-body {
+        padding: 0;
+        .header {
+            color: #b84;
+            padding: 5px 0px;
+            display: grid;
+            grid-template-columns: 90% auto;
+            .title {
+                .id {
+                    color: #788;
+                }
+            }
+            .handle {
+                cursor: pointer;
+                .btn-edit {
+                    background-color: #fff;
+                    line-height: 16px;
+                    border: 0;
+                    vertical-align: top;
+                }
+                .icon {
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+                .btn-edit:focus {
+                    outline: 0;
+                }
+            }
+        }
+        .item-card-text {
+            padding: 10px 0px;
+            font-weight: 400;
+            color: #b84;
+            .codes {
+                display: flex;
+                flex-wrap: wrap;
+                .code {
+                    border: 1px solid #ddd;
+                    font-size: 1.1vh;
+                    text-align: center;
+                    text-transform: uppercase;
+                    padding: 4px;
+                    margin-right: 3px;
+                    .badge {
+                        padding: 4px 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+.edit-modal {
+    font-size: 0.75vw;
+    .modal-content {
+        padding: 10px 40px;
+    }
+    .controlrow {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+    }
+    .form-group {
+        padding: 0;
+        margin: 8px 0px 0px 0px;
+    }
+    .label {
+        color: #444;
+        margin: 2px 0px;
+    }
+    .form-control {
+        color: maroon;
+    }
+    input,
+    textarea,
+    select {
+        padding: 2px;
+        background-color: #ffe;
+    }
+    .disabled {
+        background-color: #eee;
+    }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
-import CodeService from '../_services/Codeservice';
+import CodeService from '../../_services/Codeservice';
 
 class Codes extends Component {
     state = { codeService: CodeService.instance, loading: true };

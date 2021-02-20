@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter, Redirect } from 'react-router-dom';
-import JsxIf from '../_directives/jsxif';
-import AppConstants from '../appconstants';
-import MessageBus from '../_services/Messagebus';
+import JsxIf from '../../_directives/jsxif';
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
 
 class Header extends Component {
     state = { isLoggedIn: false, user: { name: '' } };

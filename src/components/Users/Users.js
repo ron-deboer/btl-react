@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
-import UserService from '../_services/Userservice';
+import UserService from '../../_services/Userservice';
 
 class Users extends Component {
     state = { userService: UserService.instance, loading: true };

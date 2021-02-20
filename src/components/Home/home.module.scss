@@ -1,0 +1,85 @@
+.home-container {
+    max-height: 100%;
+    overflow: hidden;
+    .header {
+        display: grid;
+        grid-template-columns: auto 20% 20%;
+        padding: 10px;
+        .title {
+            h5 {
+                color: #b84;
+                .boardcode {
+                    color: white;
+                    background-color: #b84;
+                    text-transform: uppercase;
+                    padding: 0px 6px;
+                    .btn-edit:focus {
+                        outline: 0;
+                    }
+                }
+            }
+        }
+        .select {
+            color: #788;
+            text-align: right;
+            .text {
+                margin-right: 10px;
+            }
+            margin: 3px 0px;
+            text-align: center;
+            color: #788;
+            #boardcode,
+            #projectcode {
+                border: 1px solid #ccc;
+                color: #788;
+                width: 5vw;
+                padding: 0;
+            }
+            .dropdown:focus {
+                outline: 0;
+            }
+        }
+    }
+    .main {
+        height: auto;
+        display: grid;
+        grid-gap: 0rem;
+        grid-template-columns: repeat(4, 1fr);
+        background-color: #eee;
+        padding: 0px 20px;
+        color: #788;
+        .column {
+            height: calc(100vh - 130px);
+            overflow-x: hidden;
+            overflow-y: auto;
+            .header {
+                display: grid;
+                grid-template-columns: 90% auto;
+                padding: 10px 20px;
+                font-weight: 700;
+                .btn-edit {
+                    line-height: 14px;
+                    cursor: pointer;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    background-color: #d93;
+                    color: white;
+                    .icon {
+                        height: 14px;
+                        width: 12px;
+                    }
+                }
+                .btn-edit:focus {
+                    outline: 0;
+                }
+            }
+            .items {
+                list-style-type: none;
+                margin: 5px;
+                padding: 0px 10px;
+                font-size: 1.75vh;
+                font-weight: 600;
+            }
+        }
+    }
+}

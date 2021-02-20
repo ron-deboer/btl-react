@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import AppConstants from '../appconstants';
-import MessageBus from '../_services/Messagebus';
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
 
-import AuthService from '../_services/Authservice';
-import Home from './Home';
+import AuthService from '../../_services/Authservice';
 
 class Login extends Component {
     state = { redirectToReferrer: false, username: 'admin', password: 'admin', error: '' };

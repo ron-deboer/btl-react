@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Main from './Main';
-import Home from './Home';
-import Reports from './Reports';
-import Users from './Users';
-import Codes from './Codes';
-import Items from './Items';
-import Login from './Login';
-import Logout from './Logout';
-import AuthService from '../_services/Authservice';
+
+import Home from '../Home/Home';
+import Reports from '../Reports/Reports';
+import Users from '../Users/Users';
+import Codes from '../Codes/Codes';
+import Items from '../Items/Items';
+import Login from '../Login/Login';
+import Logout from '../Logout/Logout';
+import AuthService from '../../_services/Authservice';
 
 const Router = (props) => (
     <Switch>

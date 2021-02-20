@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
-import ItemService from '../_services/Itemservice';
+import ItemService from '../../_services/Itemservice';
 
-class Items extends Component {
+class Reports extends Component {
     state = { itemService: ItemService.instance, loading: true };
     items = [];
     columns = [
@@ -54,11 +54,11 @@ class Items extends Component {
     render() {
         return (
             <div>
-                <h5>Items</h5>
+                <h5>Reports</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
             </div>
         );
     }
 }
 
-export default Items;
+export default Reports;

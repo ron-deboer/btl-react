@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
-import ItemService from '../_services/Itemservice';
+import ItemService from '../../_services/Itemservice';
 
-class Home extends Component {
+class Items extends Component {
     state = { itemService: ItemService.instance, loading: true };
     items = [];
     columns = [
@@ -46,6 +46,7 @@ class Home extends Component {
     componentDidMount() {
         this.state.itemService.getAll().then((resp) => {
             this.items = JSON.parse(resp);
+            console.table(this.items);
             this.setState({ loading: false });
         });
     }
@@ -53,11 +54,11 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <h5>Kanban</h5>
+                <h5>Items</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
             </div>
         );
     }
 }
 
-export default Home;
+export default Items;

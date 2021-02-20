@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter, Redirect } from 'react-router-dom';
-import AuthService from '../_services/Authservice';
-import AppConstants from '../appconstants';
-import MessageBus from '../_services/Messagebus';
+import AuthService from '../../_services/Authservice';
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
 
 class Logout extends Component {
     handleLoginClick() {
