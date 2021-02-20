@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
 
-import Card from './Card';
+import Column from './Column';
 
 class Home extends Component {
     state = {
@@ -53,143 +53,49 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                <div className="home-container">
-                    <form>
-                        <div className="header">
-                            <div className="title">
-                                <h5>
-                                    Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
-                                </h5>
-                            </div>
-                            <div className="select">
-                                <span className="text">Kanban Board</span>
-                                <select
-                                    className="form-control-inline form-control-sm dropdown"
-                                    id="boardcode"
-                                    name="boardcode"
-                                >
-                                    {this.getSelectOptions('id', 'BOARD').map((c) => (
-                                        <option key={c.key} value={c.code}>
-                                            {c.code}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="select">
-                                <span className="text">Project</span>
-                                <select
-                                    className="form-control-inline form-control-sm dropdown"
-                                    id="projectcode"
-                                    name="projectcode"
-                                >
-                                    {this.getSelectOptions('id', 'PROJECT').map((c) => (
-                                        <option key={c.key} value={c.code}>
-                                            {c.code}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+            <div className="home-container">
+                <form>
+                    <div className="header">
+                        <div className="title">
+                            <h5>
+                                Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
+                            </h5>
                         </div>
-                    </form>
-                    <div className="main">
-                        <div className="column">
-                            <div className="header">
-                                <div className="title">Open Items</div>
-                                <div>
-                                    <button
-                                        className="btn-edit"
-                                        data-title="Edit"
-                                        data-toggle="modal"
-                                        data-target="#edit"
-                                    >
-                                        <i className="fa fa-plus fa-xs icon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <ul className="open-items items">
-                                {this.cards
-                                    .filter((x) => x.statuscode === 'Open')
-                                    .map((card, i) => (
-                                        <li>
-                                            <Card key={i} item={card} />
-                                        </li>
-                                    ))}
-                            </ul>
+                        <div className="select">
+                            <span className="text">Kanban Board</span>
+                            <select
+                                className="form-control-inline form-control-sm dropdown"
+                                id="boardcode"
+                                name="boardcode"
+                            >
+                                {this.getSelectOptions('id', 'BOARD').map((c) => (
+                                    <option key={c.key} value={c.code}>
+                                        {c.code}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
-                        <div className="column">
-                            <div className="header">
-                                <div className="title">Assigned</div>
-                                <div>
-                                    <button
-                                        className="btn-edit"
-                                        data-title="Edit"
-                                        data-toggle="modal"
-                                        data-target="#edit"
-                                    >
-                                        <i className="fa fa-plus fa-xs icon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <ul className="open-items items">
-                                {this.cards
-                                    .filter((x) => x.statuscode === 'Assigned')
-                                    .map((card, i) => (
-                                        <li>
-                                            <Card key={i} item={card} />
-                                        </li>
-                                    ))}
-                            </ul>
-                        </div>
-                        <div className="column">
-                            <div className="header">
-                                <div className="title">In Review</div>
-                                <div>
-                                    <button
-                                        className="btn-edit"
-                                        data-title="Edit"
-                                        data-toggle="modal"
-                                        data-target="#edit"
-                                    >
-                                        <i className="fa fa-plus fa-xs icon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <ul className="open-items items">
-                                {this.cards
-                                    .filter((x) => x.statuscode === 'Review')
-                                    .map((card, i) => (
-                                        <li>
-                                            <Card key={i} item={card} />
-                                        </li>
-                                    ))}
-                            </ul>
-                        </div>
-                        <div className="column">
-                            <div className="header">
-                                <div className="title">Completed</div>
-                                <div>
-                                    <button
-                                        className="btn-edit"
-                                        data-title="Edit"
-                                        data-toggle="modal"
-                                        data-target="#edit"
-                                    >
-                                        <i className="fa fa-plus fa-xs icon"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <ul className="open-items items">
-                                {this.cards
-                                    .filter((x) => x.statuscode === 'Closed')
-                                    .map((card, i) => (
-                                        <li>
-                                            <Card key={i} item={card} />
-                                        </li>
-                                    ))}
-                            </ul>
+                        <div className="select">
+                            <span className="text">Project</span>
+                            <select
+                                className="form-control-inline form-control-sm dropdown"
+                                id="projectcode"
+                                name="projectcode"
+                            >
+                                {this.getSelectOptions('id', 'PROJECT').map((c) => (
+                                    <option key={c.key} value={c.code}>
+                                        {c.code}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
+                </form>
+                <div className="main">
+                    <Column title="Open" items={this.cards.filter((x) => x.statuscode === 'Open')} />
+                    <Column title="Assigned" items={this.cards.filter((x) => x.statuscode === 'Assigned')} />
+                    <Column title="In Review" items={this.cards.filter((x) => x.statuscode === 'Review')} />
+                    <Column title="Closed" items={this.cards.filter((x) => x.statuscode === 'Closed')} />
                 </div>
             </div>
         );
