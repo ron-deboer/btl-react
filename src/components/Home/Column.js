@@ -25,8 +25,8 @@ class Column extends Component {
                 </div>
                 <ul className="open-items items">
                     {this.props.items.map((card, i) => (
-                        <li>
-                            <Card key={i} item={card} />
+                        <li key={card.id}>
+                            <Card item={card} />
                         </li>
                     ))}
                 </ul>

@@ -30,7 +30,6 @@ class Home extends Component {
             })
         );
         Promise.all(prArray).then((values) => {
-            console.table(this.codes);
             this.getCards(this.state.boardcode);
             this.setState({ loading: false });
         });
@@ -38,7 +37,6 @@ class Home extends Component {
 
     getCards(boardcode) {
         this.cards = this.items.filter((x) => x.boardcode === boardcode);
-        console.table(this.cards);
     }
 
     getSelectOptions(key, codeType) {
@@ -51,6 +49,11 @@ class Home extends Component {
                 };
             });
     }
+
+    handleChange = (name, e) => {
+        this.getCards(e.target.value);
+        this.setState({ boardcode: e.target.value });
+    };
 
     render() {
         return (
@@ -66,11 +69,13 @@ class Home extends Component {
                             caption="Kanban Board"
                             name="boardcode"
                             options={this.getSelectOptions('id', 'BOARD')}
+                            onChange={this.handleChange}
                         />
                         <SelectCode
                             caption="Project"
                             name="projectcode"
                             options={this.getSelectOptions('id', 'PROJECT')}
+                            onChange={this.handleChange}
                         />
                     </div>
                 </form>

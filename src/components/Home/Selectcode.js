@@ -13,6 +13,7 @@ class SelectCode extends Component {
                     className="form-control-inline form-control-sm dropdown"
                     id={this.props.name}
                     name={this.props.name}
+                    onChange={(e) => this.props.onChange(this.props.name, e)}
                 >
                     {this.props.options.map((c) => (
                         <option key={c.key} value={c.code}>

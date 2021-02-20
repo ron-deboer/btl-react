@@ -46,7 +46,6 @@ class Reports extends Component {
     componentDidMount() {
         this.state.itemService.getAll().then((resp) => {
             this.items = JSON.parse(resp);
-            console.table(this.items);
             this.setState({ loading: false });
         });
     }
