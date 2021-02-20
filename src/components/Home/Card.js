@@ -7,9 +7,6 @@ class Card extends Component {
 
     getCodeClass(codetype, code) {
         const c = code.toLowerCase();
-        if (codetype === 'user') {
-            return 'badge-primary';
-        }
         if (codetype === 'size') {
             if (c === 'large') {
                 return 'badge-danger';
@@ -105,12 +102,7 @@ class Card extends Component {
                             <div className="code">
                                 Assigned
                                 <br />
-                                <span
-                                    className={`badge badge-pill ${this.getCodeClass(
-                                        'user',
-                                        this.props.item.assignedtouser
-                                    )}`}
-                                >
+                                <span className={`badge badge-pill badge-primary`}>
                                     {this.props.item.assignedtouser}
                                 </span>
                             </div>

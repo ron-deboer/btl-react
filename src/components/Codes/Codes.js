@@ -31,7 +31,6 @@ class Codes extends Component {
     componentDidMount() {
         this.state.codeService.getAll().then((resp) => {
             this.codes = JSON.parse(resp);
-            console.table(this.codes);
             this.setState({ loading: false });
         });
     }
