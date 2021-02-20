@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Route, NavLink, HashRouter, Redirect } from 'react-router-dom';
 
-import Header from './Header';
-
-import Router from './Router';
+import Header from './Header/Header';
+import Router from './Router/Router';
 import { FakeDataLoader } from '../_helpers/fake-data';
 import { InitFakeBackend } from '../_helpers/fake-backend';
 
@@ -15,8 +13,16 @@ class Main extends Component {
     }
 
     render() {
+        let appStyle = {
+            width: '80%',
+            margin: 'auto',
+            maxHeight: '100vh',
+            minHeight: '100vh',
+            display: 'grid',
+            gridTemplateRows: 'auto 1fr',
+        };
         return (
-            <div className="app">
+            <div style={appStyle}>
                 <Header />
                 <Router />
             </div>
