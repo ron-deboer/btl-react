@@ -41,7 +41,7 @@ class Card extends Component {
         return (
             <div className="item-card">
                 <div className="item-card-body">
-                    <div className="header">
+                    <div className="item-card-header">
                         <div className="title">
                             <span className="id">({this.props.item.id})</span> {this.props.item.title}
                         </div>
