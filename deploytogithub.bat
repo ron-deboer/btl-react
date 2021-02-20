@@ -1,1 +1,1 @@
-gh-pages -d build
+npm run deploy

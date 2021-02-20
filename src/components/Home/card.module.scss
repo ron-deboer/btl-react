@@ -3,21 +3,24 @@
     box-shadow: 2px 2px #ccc;
     margin-bottom: 10px;
     background-color: #fff;
-    padding: 20px;
+    padding: 10px;
     font-size: 0.7vw;
     .item-card-body {
         padding: 0;
-        .header {
+        .item-card-header {
+            border: 1px solid #eee;
             color: #b84;
-            padding: 5px 0px;
+            padding: 0;
             display: grid;
             grid-template-columns: 90% auto;
             .title {
+                padding: 0;
                 .id {
                     color: #788;
                 }
             }
             .handle {
+                padding: 0;
                 cursor: pointer;
                 .btn-edit {
                     background-color: #fff;
