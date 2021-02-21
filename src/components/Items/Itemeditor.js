@@ -69,7 +69,7 @@ class ItemEditor extends Component {
                             </div>
                             <div className="modal-body">
                                 <div className="form-group">
-                                    <label className="label" for="title">
+                                    <label className="label" htmlFor="title">
                                         Title
                                     </label>
                                     <input
@@ -82,7 +82,7 @@ class ItemEditor extends Component {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label className="label" for="description">
+                                    <label className="label" htmlFor="description">
                                         Description
                                     </label>
                                     <textarea
@@ -98,7 +98,7 @@ class ItemEditor extends Component {
                                 </div>
                                 <div className="controlrow">
                                     <div className="form-group">
-                                        <label className="label" for="boardcode">
+                                        <label className="label" htmlFor="boardcode">
                                             Kanban Board
                                         </label>
                                         <CodeSelector
@@ -108,7 +108,7 @@ class ItemEditor extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label className="label" for="projectcode">
+                                        <label className="label" htmlFor="projectcode">
                                             Project
                                         </label>
                                         <CodeSelector
@@ -118,7 +118,7 @@ class ItemEditor extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label className="label" for="prioritycode">
+                                        <label className="label" htmlFor="prioritycode">
                                             Priority
                                         </label>
                                         <CodeSelector
@@ -128,7 +128,7 @@ class ItemEditor extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label className="label" for="sizecode">
+                                        <label className="label" htmlFor="sizecode">
                                             Size
                                         </label>
                                         <CodeSelector
@@ -138,7 +138,7 @@ class ItemEditor extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label className="label" for="statuscode">
+                                        <label className="label" htmlFor="statuscode">
                                             Status
                                         </label>
                                         <CodeSelector
@@ -148,7 +148,7 @@ class ItemEditor extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label className="label" for="assignedtouser">
+                                        <label className="label" htmlFor="assignedtouser">
                                             Assigned To
                                         </label>
                                         <CodeSelector
@@ -159,7 +159,7 @@ class ItemEditor extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label className="label" for="comments">
+                                    <label className="label" htmlFor="comments">
                                         Comments
                                     </label>
                                     <textarea
