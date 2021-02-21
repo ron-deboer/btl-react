@@ -7,6 +7,8 @@ import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
 import ItemEditor from './Itemeditor';
 
+import './items.scss';
+
 class Items extends Component {
     state = {
         itemService: ItemService.instance,
@@ -56,7 +58,7 @@ class Items extends Component {
         {
             name: 'Edit',
             cell: (row) => (
-                <button className="btn-edit" onClick={this.handleEditClick} id={row.id}>
+                <button className="btn-edit" onClick={this.handleEditClick(row)}>
                     <i className="fa fa-pencil fa-xs"></i>
                 </button>
             ),
@@ -65,6 +67,11 @@ class Items extends Component {
             button: true,
         },
     ];
+
+    constructor(props) {
+        super(props);
+        this.handleEditClick = this.handleEditClick.bind(this);
+    }
 
     componentDidMount() {
         this.state.itemService.getAll().then((resp) => {
@@ -76,22 +83,21 @@ class Items extends Component {
         });
     }
 
-    handleEditClick = (e) => {
-        const id = parseInt(e.target.id, 10);
-        console.log('1111', id);
-        const item = this.items.find((x) => x.id == id);
-        this.setState({ item: item, edit: true });
-        console.log(item);
+    handleEditClick = (row) => {
+        return function (e) {
+            const id = parseInt(row.id, 10);
+            const item = this.items.find((x) => x.id === id);
+            this.setState({ item: item, edit: true });
+            console.log(item);
+        }.bind(this);
     };
 
     render() {
         return (
-            <div>
+            <div className="items-table">
                 <h5>Items</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
-                <JsxIf cond={this.state.edit}>
-                    <ItemEditor item={this.state.item} codes={this.codes} />
-                </JsxIf>
+                <ItemEditor show={this.state.edit} item={this.state.item} codes={this.codes} />
             </div>
         );
     }

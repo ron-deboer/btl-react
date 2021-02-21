@@ -5,6 +5,8 @@ import CodeService from '../../_services/Codeservice';
 
 import CodeSelector from '../CodeSelector/CodeSelector';
 
+import './modal.scss';
+
 class ItemEditor extends Component {
     state = {
         itemService: ItemService.instance,
@@ -17,7 +19,7 @@ class ItemEditor extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.model = this.props.item;
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -25,6 +27,10 @@ class ItemEditor extends Component {
             this.codes = resp;
         });
         this.setState({ loading: false });
+    }
+
+    componentDidUpdate(prevProps) {
+        this.model = this.props.item;
     }
 
     getSelectOptions(key, codeType) {
@@ -49,21 +55,17 @@ class ItemEditor extends Component {
             return false;
         }
         const model = this.model;
+        const classnames = this.props.show ? 'modal display-block' : 'modal display-none';
         return (
-            <div className="modal fade" id="edit-modal" tabindex="-1" role="dialog">
-                <div className="modal-dialog" role="document">
+            <div className={classnames} id="edit-modal" tabIndex="-1" role="dialog">
+                <div className="modal-main">
                     <form className="needs-validation">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">
                                     Edit Item {model.id}
                                 </h5>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-dismiss="modal"
-                                    aria-label="Close"
-                                >
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -91,7 +93,7 @@ class ItemEditor extends Component {
                                         id="description"
                                         name="description"
                                         required
-                                        minlength="4"
+                                        minLength="4"
                                         value={model.description}
                                         onChange={(e) => this.handleChange('description', e)}
                                     ></textarea>

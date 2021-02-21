@@ -1,0 +1,20 @@
+.items-table {
+    .icon {
+        height: 20px;
+        width: 20px;
+    }
+    .btn-edit {
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        background-color: #ccf;
+    }
+    .btn-edit:hover {
+        background-color: #b84;
+    }
+    .btn-edit:focus {
+        outline: none;
+    }
+    .isinvalid {
+        border: 2px solid #fcc;
+    }
+}
