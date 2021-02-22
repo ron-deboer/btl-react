@@ -7,17 +7,13 @@ class CodeSelector extends Component {
 
     render() {
         let cmpStyle = {
-            width: '80%',
-            margin: 'auto',
-            maxHeight: '100vh',
-            minHeight: '100vh',
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr',
+            width: 'auto',
+            marginRight: '5px',
         };
         return (
             <div style={cmpStyle}>
                 <select
-                    className="form-control-inline form-control-sm dropdown"
+                    className="form-control-inline form-control-sm"
                     id={this.props.name}
                     name={this.props.name}
                     onChange={(e) => this.props.onChange(this.props.name, e)}

@@ -102,7 +102,7 @@ class Items extends Component {
             <div className="items-table">
                 <h5>Items</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
-                <ItemEditor codes={this.codes} />
+                <ItemEditor codes={this.codes}>Hello, my name is Ron deBoer</ItemEditor>
             </div>
         );
     }
