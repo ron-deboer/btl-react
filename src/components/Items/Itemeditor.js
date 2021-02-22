@@ -17,7 +17,6 @@ class ItemEditor extends Component {
         display: 'none',
     };
     codes = [];
-    _modal = null;
 
     constructor(props) {
         super(props);
@@ -38,9 +37,8 @@ class ItemEditor extends Component {
             }
         });
         this.state.codeService.getAll().then((resp) => {
-            this.codes = resp;
+            this.codes = JSON.parse(resp);
         });
-        this.codes = this.props.codes;
     }
 
     openModal() {
@@ -58,7 +56,7 @@ class ItemEditor extends Component {
     }
 
     getSelectOptions(key, codeType) {
-        return this.props.codes
+        return this.codes
             .filter((x) => x.codetype === codeType)
             .map((x) => {
                 return {

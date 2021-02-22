@@ -5,6 +5,10 @@ import CodeService from '../../_services/Codeservice';
 
 import Column from './Column';
 import SelectCode from './Selectcode';
+import ItemEditor from '../Items/Itemeditor';
+
+import './home.scss';
+import './card.scss';
 
 class Home extends Component {
     state = {
@@ -85,6 +89,7 @@ class Home extends Component {
                     <Column title="In Review" items={this.cards.filter((x) => x.statuscode === 'Review')} />
                     <Column title="Closed" items={this.cards.filter((x) => x.statuscode === 'Closed')} />
                 </div>
+                <ItemEditor />
             </div>
         );
     }

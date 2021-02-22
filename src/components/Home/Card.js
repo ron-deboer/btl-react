@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
+
 class Card extends Component {
     state = {};
 
+    constructor(props) {
+        super(props);
+        this.handleEditClick = this.handleEditClick.bind(this);
+    }
+
     componentDidMount() {}
+
+    handleEditClick = () => {
+        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, this.props.item);
+    };
 
     getCodeClass(codetype, code) {
         const c = code.toLowerCase();
@@ -45,9 +57,9 @@ class Card extends Component {
                         <div className="handle">
                             <button
                                 className="btn-edit"
-                                data-title="Edit"
-                                data-toggle="modal"
-                                data-target="#edit"
+                                onClick={(e) => {
+                                    this.handleEditClick();
+                                }}
                             >
                                 <span className="icon">...</span>
                             </button>

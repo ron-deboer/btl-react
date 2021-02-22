@@ -13,10 +13,8 @@ import './items.scss';
 class Items extends Component {
     state = {
         itemService: ItemService.instance,
-        codeService: CodeService.instance,
         item: null,
         loading: true,
-        showModal: false,
     };
     items = [];
     codes = [];
@@ -84,16 +82,11 @@ class Items extends Component {
             this.items = JSON.parse(resp);
             this.setState({ loading: false });
         });
-        this.state.codeService.getAll().then((resp) => {
-            this.codes = JSON.parse(resp);
-        });
     }
 
     handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
         const item = this.items.find((x) => x.id === id);
-        this.setState({ item: item, edit: true });
-        console.log(item);
         MessageBus.emit(AppConstants.MSG_OPEN_MODAL, item);
     };
 
@@ -102,7 +95,7 @@ class Items extends Component {
             <div className="items-table">
                 <h5>Items</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
-                <ItemEditor codes={this.codes}>Hello, my name is Ron deBoer</ItemEditor>
+                <ItemEditor />
             </div>
         );
     }

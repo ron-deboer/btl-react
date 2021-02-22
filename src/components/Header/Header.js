@@ -4,6 +4,8 @@ import JsxIf from '../../_directives/jsxif';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
+import './header.scss';
+
 class Header extends Component {
     state = { isLoggedIn: false, user: { name: '' } };
 
