@@ -1,0 +1,66 @@
+$fontsize: 1.5vh;
+#modalItem {
+    min-width: 25vw;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    box-shadow: -0.5rem 0.5rem 0.5rem rgba(black, 0.2);
+    transition: transform 0.3s ease-out;
+    font-size: $fontsize;
+
+    .modal-content {
+        border: 0;
+        padding: 10px 20px;
+        .modal-body {
+            .dropdown {
+                width: 30%;
+                margin-right: 2vw;
+                text-align: left;
+            }
+
+            .form-group {
+                font-size: $fontsize;
+                padding: 0;
+                margin: 8px 0px 0px 0px;
+            }
+            .label {
+                font-size: $fontsize;
+                color: #444;
+                margin: 2px 0px;
+            }
+            .form-control {
+                font-size: $fontsize;
+                color: maroon;
+            }
+            input,
+            textarea,
+            select {
+                color: maroon;
+                font-size: $fontsize;
+                padding: 2px;
+                background-color: #ffe;
+            }
+            input:focus,
+            textarea:focus,
+            select:focus {
+                outline: none;
+            }
+            .disabled {
+                background-color: #eee;
+            }
+        }
+    }
+}
+.modale:before {
+    content: '';
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}

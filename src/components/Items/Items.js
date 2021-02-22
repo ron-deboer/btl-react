@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
 import ItemService from '../../_services/Itemservice';
-import CodeService from '../../_services/Codeservice';
 import ItemEditor from './Itemeditor';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
