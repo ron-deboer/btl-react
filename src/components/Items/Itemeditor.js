@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 
 import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
+import UserService from '../../_services/Userservice';
+
 import CodeSelector from '../CodeSelector/CodeSelector';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
-import './modal.scss';
+import './itemeditor.scss';
 
 class ItemEditor extends Component {
     state = {
         itemService: ItemService.instance,
         codeService: CodeService.instance,
+        userService: UserService.instance,
         model: null,
         modalShow: '',
         display: 'none',
@@ -39,6 +42,9 @@ class ItemEditor extends Component {
         this.state.codeService.getAll().then((resp) => {
             this.codes = JSON.parse(resp);
         });
+        this.state.userService.getAll().then((resp) => {
+            this.users = JSON.parse(resp);
+        });
     }
 
     openModal() {
@@ -56,14 +62,22 @@ class ItemEditor extends Component {
     }
 
     getSelectOptions(key, codeType) {
-        return this.codes
-            .filter((x) => x.codetype === codeType)
-            .map((x) => {
-                return {
-                    key: codeType + '_' + x.id,
-                    code: x.code,
-                };
-            });
+        if (codeType !== 'ASSIGNED') {
+            return this.codes
+                .filter((x) => x.codetype === codeType)
+                .map((x) => {
+                    return {
+                        key: codeType + '_' + x.id,
+                        code: x.code,
+                    };
+                });
+        }
+        return this.users.map((x) => {
+            return {
+                key: codeType + '_' + x.id,
+                code: x.username,
+            };
+        });
     }
 
     handleSave() {
