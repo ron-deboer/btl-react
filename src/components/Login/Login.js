@@ -5,6 +5,8 @@ import MessageBus from '../../_services/Messagebus';
 
 import AuthService from '../../_services/Authservice';
 
+import './login.scss';
+
 class Login extends Component {
     state = { redirectToReferrer: false, username: 'admin', password: 'admin', error: '' };
     authService = AuthService.instance;

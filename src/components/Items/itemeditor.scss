@@ -1,4 +1,4 @@
-$fontsize: 1.2vh;
+$fontsize: 1.5vh;
 #modalItem {
     width: auto;
     height: auto;
@@ -16,7 +16,7 @@ $fontsize: 1.2vh;
         padding: 10px 20px;
         .modal-body {
             .controlrow {
-                width: 100%;
+                width: 25vw;
                 display: flex;
                 flex-wrap: wrap;
                 .dropdown {
