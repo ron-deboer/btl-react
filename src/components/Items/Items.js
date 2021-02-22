@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 import DataTable from 'react-data-table-component';
-import JsxIf from '../../_directives/jsxif';
 
 import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
 import ItemEditor from './Itemeditor';
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
 
 import './items.scss';
 
@@ -13,9 +14,9 @@ class Items extends Component {
     state = {
         itemService: ItemService.instance,
         codeService: CodeService.instance,
-        edit: false,
         item: null,
         loading: true,
+        showModal: false,
     };
     items = [];
     codes = [];
@@ -58,7 +59,12 @@ class Items extends Component {
         {
             name: 'Edit',
             cell: (row) => (
-                <button className="btn-edit" onClick={this.handleEditClick(row)}>
+                <button
+                    className="btn-edit"
+                    onClick={(e) => {
+                        this.handleEditClick(row);
+                    }}
+                >
                     <i className="fa fa-pencil fa-xs"></i>
                 </button>
             ),
@@ -84,12 +90,11 @@ class Items extends Component {
     }
 
     handleEditClick = (row) => {
-        return function (e) {
-            const id = parseInt(row.id, 10);
-            const item = this.items.find((x) => x.id === id);
-            this.setState({ item: item, edit: true });
-            console.log(item);
-        }.bind(this);
+        const id = parseInt(row.id, 10);
+        const item = this.items.find((x) => x.id === id);
+        this.setState({ item: item, edit: true });
+        console.log(item);
+        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, item);
     };
 
     render() {
@@ -97,7 +102,7 @@ class Items extends Component {
             <div className="items-table">
                 <h5>Items</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
-                <ItemEditor show={this.state.edit} item={this.state.item} codes={this.codes} />
+                <ItemEditor codes={this.codes} />
             </div>
         );
     }

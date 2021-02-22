@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
-
 import CodeSelector from '../CodeSelector/CodeSelector';
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
 
 import './modal.scss';
 
@@ -11,10 +12,9 @@ class ItemEditor extends Component {
     state = {
         itemService: ItemService.instance,
         codeService: CodeService.instance,
-        loading: true,
+        model: null,
     };
     codes = [];
-    model = null;
 
     constructor(props) {
         super(props);
@@ -23,14 +23,13 @@ class ItemEditor extends Component {
     }
 
     componentDidMount() {
+        MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (data) => {
+            this.setState({ model: data });
+        });
         this.state.codeService.getAll().then((resp) => {
             this.codes = resp;
         });
-        this.setState({ loading: false });
-    }
-
-    componentDidUpdate(prevProps) {
-        this.model = this.props.item;
+        this.codes = this.props.codes;
     }
 
     getSelectOptions(key, codeType) {
@@ -45,25 +44,26 @@ class ItemEditor extends Component {
     }
 
     handleChange(name, e) {
-        this.model[name] = e.target.value;
+        let model = this.state.model;
+        model[name] = e.target.value;
+        this.setState({ model: model });
     }
 
     handleSubmit() {}
 
     render() {
-        if (this.model === null) {
+        if (this.state.model === null) {
             return false;
         }
-        const model = this.model;
-        const classnames = this.props.show ? 'modal display-block' : 'modal display-none';
+
         return (
-            <div className={classnames} id="edit-modal" tabIndex="-1" role="dialog">
+            <div className="modal display-block" id="edit-modal" tabIndex="-1" role="dialog">
                 <div className="modal-main">
                     <form className="needs-validation">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">
-                                    Edit Item {model.id}
+                                    Edit Item {this.state.model.id}
                                 </h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -79,7 +79,7 @@ class ItemEditor extends Component {
                                         className="form-control form-control-sm input-sm"
                                         id="title"
                                         name="title"
-                                        value={model.title}
+                                        value={this.state.model.title}
                                         onChange={(e) => this.handleChange('title', e)}
                                     />
                                 </div>
@@ -94,7 +94,7 @@ class ItemEditor extends Component {
                                         name="description"
                                         required
                                         minLength="4"
-                                        value={model.description}
+                                        value={this.state.model.description}
                                         onChange={(e) => this.handleChange('description', e)}
                                     ></textarea>
                                 </div>
@@ -169,7 +169,7 @@ class ItemEditor extends Component {
                                         className="form-control form-control-sm input-sm"
                                         id="comments"
                                         name="comments"
-                                        value={model.comments}
+                                        value={this.state.model.comments}
                                         onChange={(e) => this.handleChange('comments', e)}
                                     ></textarea>
                                 </div>

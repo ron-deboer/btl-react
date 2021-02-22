@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, HashRouter, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import JsxIf from '../../_directives/jsxif';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
