@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 
-import ItemService from '../../_services/Itemservice';
-import CodeService from '../../_services/Codeservice';
 import UserService from '../../_services/Userservice';
 
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
-import { ECodeType } from '../../_interfaces/code';
+import './usereditor.scss';
 
-import './codeeditor.scss';
-
-class CodeEditor extends Component {
+class UserEditor extends Component {
     state = {
-        itemService: ItemService.instance,
-        codeService: CodeService.instance,
         userService: UserService.instance,
         model: null,
         modalShow: '',
         display: 'none',
     };
-    codeTypes = [];
+    roles = ['admin', 'user'];
 
     constructor(props) {
         super(props);
@@ -33,7 +27,7 @@ class CodeEditor extends Component {
 
     componentDidMount() {
         MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (payload) => {
-            if (payload.target == 'codeeditor') {
+            if (payload.target == 'usereditor') {
                 this.setState({ model: payload.data });
                 if (payload.data !== null) {
                     this.openModal();
@@ -42,7 +36,6 @@ class CodeEditor extends Component {
                 }
             }
         });
-        this.codeTypes = Object.values(ECodeType);
     }
 
     openModal() {
@@ -59,25 +52,6 @@ class CodeEditor extends Component {
         });
     }
 
-    getSelectOptions(key, codeType) {
-        if (codeType !== 'ASSIGNED') {
-            return this.codes
-                .filter((x) => x.codetype === codeType)
-                .map((x) => {
-                    return {
-                        key: codeType + '_' + x.id,
-                        code: x.code,
-                    };
-                });
-        }
-        return this.users.map((x) => {
-            return {
-                key: codeType + '_' + x.id,
-                code: x.username,
-            };
-        });
-    }
-
     handleSave() {
         this.closeModal();
     }
@@ -91,8 +65,8 @@ class CodeEditor extends Component {
     handleSubmit() {}
 
     render() {
-        if (!this.state.model) {
-            return null;
+        if (this.state.model === null) {
+            return false;
         }
         return (
             <div className="modale" aria-hidden="true" style={{ display: this.state.display }}>
@@ -109,7 +83,7 @@ class CodeEditor extends Component {
                             <form className="needs-validation">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title">Edit Code {this.state.model.id}</h5>
+                                        <h5 className="modal-title">Edit User {this.state.model.id}</h5>
                                         <button
                                             type="button"
                                             className="close"
@@ -122,49 +96,61 @@ class CodeEditor extends Component {
                                     </div>
                                     <div className="modal-body">
                                         <div className="form-group">
-                                            <label className="label" htmlFor="title">
-                                                Code Type
+                                            <label className="label" htmlFor="username">
+                                                User Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-control form-control-sm input-sm dropdown"
+                                                id="username"
+                                                name="username"
+                                                value={this.state.model.username}
+                                                onChange={(e) => this.handleChange('username', e)}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="label" htmlFor="name">
+                                                Full Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-control form-control-sm input-sm"
+                                                id="name"
+                                                name="name"
+                                                value={this.state.model.name}
+                                                onChange={(e) => this.handleChange('name', e)}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="label" htmlFor="email">
+                                                Email
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-control form-control-sm input-sm"
+                                                id="email"
+                                                name="email"
+                                                value={this.state.model.email}
+                                                onChange={(e) => this.handleChange('email', e)}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label className="label" htmlFor="role">
+                                                Role
                                             </label>
                                             <select
                                                 className="form-control form-control-sm input-sm dropdown"
-                                                id="codetype"
-                                                name="codetype"
-                                                value={this.state.model.code}
-                                                onChange={(e) => this.handleChange('codetype', e)}
+                                                id="role"
+                                                name="role"
+                                                value={this.state.model.role}
+                                                onChange={(e) => this.handleChange('role', e)}
                                             >
-                                                {this.codeTypes.map((c) => (
+                                                {this.roles.map((c) => (
                                                     <option key={c} value={c}>
                                                         {c}
                                                     </option>
                                                 ))}
                                             </select>
-                                        </div>
-
-                                        <div className="form-group">
-                                            <label className="label" htmlFor="title">
-                                                Code
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-sm input-sm dropdown"
-                                                id="code"
-                                                name="code"
-                                                value={this.state.model.code}
-                                                onChange={(e) => this.handleChange('code', e)}
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="label" htmlFor="title">
-                                                Description
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-sm input-sm"
-                                                id="description"
-                                                name="description"
-                                                value={this.state.model.description}
-                                                onChange={(e) => this.handleChange('description', e)}
-                                            />
                                         </div>
                                     </div>
                                     <div className="modal-footer">
@@ -193,4 +179,4 @@ class CodeEditor extends Component {
     }
 }
 
-export default CodeEditor;
+export default UserEditor;

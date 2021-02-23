@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
 import ItemService from '../../_services/Itemservice';
-import ItemEditor from './Itemeditor';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
@@ -86,7 +85,11 @@ class Items extends Component {
     handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
         const item = this.items.find((x) => x.id === id);
-        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, item);
+        const payload = {
+            target: 'itemeditor',
+            data: item,
+        };
+        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, payload);
     };
 
     render() {
@@ -94,7 +97,6 @@ class Items extends Component {
             <div className="items-table">
                 <h5>Items</h5>
                 <DataTable striped="true" columns={this.columns} data={this.items} />
-                <ItemEditor />
             </div>
         );
     }

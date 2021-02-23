@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 
 import CodeService from '../../_services/Codeservice';
-import CodeEditor from './Codeeditor';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
@@ -49,6 +48,12 @@ class Codes extends Component {
             button: true,
         },
     ];
+
+    constructor(props) {
+        super(props);
+        this.handleEditClick = this.handleEditClick.bind(this);
+    }
+
     componentDidMount() {
         this.state.codeService.getAll().then((resp) => {
             this.codes = JSON.parse(resp);
@@ -59,7 +64,11 @@ class Codes extends Component {
     handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
         const code = this.codes.find((x) => x.id === id);
-        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, code);
+        const payload = {
+            target: 'codeeditor',
+            data: code,
+        };
+        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, payload);
     };
 
     render() {
@@ -67,7 +76,6 @@ class Codes extends Component {
             <div className="codes-table">
                 <h5>Codes</h5>
                 <DataTable striped="true" columns={this.columns} data={this.codes} />
-                <CodeEditor />
             </div>
         );
     }
