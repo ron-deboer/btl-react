@@ -6,6 +6,7 @@ import { FakeDataLoader } from '../_helpers/fake-data';
 import { InitFakeBackend } from '../_helpers/fake-backend';
 import ItemEditor from './Items/Itemeditor';
 import CodeEditor from './Codes/Codeeditor';
+import UserEditor from './Users/Usereditor';
 
 class Main extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class Main extends Component {
                 <Router />
                 <ItemEditor />
                 <CodeEditor />
+                <UserEditor />
             </div>
         );
     }
