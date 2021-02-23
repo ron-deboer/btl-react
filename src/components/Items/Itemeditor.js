@@ -24,7 +24,6 @@ class ItemEditor extends Component {
 
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -84,6 +83,7 @@ class ItemEditor extends Component {
     }
 
     handleSave() {
+        this.itemService.updateItem(this.state.model);
         this.closeModal();
     }
 
@@ -92,8 +92,6 @@ class ItemEditor extends Component {
         model[name] = e.target.value;
         this.setState({ model: model });
     }
-
-    handleSubmit() {}
 
     render() {
         if (!this.state.model) {
