@@ -14,7 +14,11 @@ class Card extends Component {
     componentDidMount() {}
 
     handleEditClick = () => {
-        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, this.props.item);
+        const payload = {
+            target: 'itemeditor',
+            data: this.props.item,
+        };
+        MessageBus.emit(AppConstants.MSG_OPEN_MODAL, payload);
     };
 
     getCodeClass(codetype, code) {

@@ -32,12 +32,14 @@ class CodeEditor extends Component {
     }
 
     componentDidMount() {
-        MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (data) => {
-            this.setState({ model: data });
-            if (data !== null) {
-                this.openModal();
-            } else {
-                this.closeModal();
+        MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (payload) => {
+            if (payload.target == 'codeeditor') {
+                this.setState({ model: payload.data });
+                if (payload.data !== null) {
+                    this.openModal();
+                } else {
+                    this.closeModal();
+                }
             }
         });
         this.codeTypes = Object.values(ECodeType);
@@ -89,8 +91,8 @@ class CodeEditor extends Component {
     handleSubmit() {}
 
     render() {
-        if (this.state.model === null) {
-            return false;
+        if (!this.state.model) {
+            return null;
         }
         return (
             <div className="modale" aria-hidden="true" style={{ display: this.state.display }}>
@@ -166,10 +168,18 @@ class CodeEditor extends Component {
                                         </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>
+                                        <button
+                                            type="button"
+                                            className="btn btn-secondary"
+                                            onClick={this.closeModal}
+                                        >
                                             Close
                                         </button>
-                                        <button type="button" className="btn btn-primary" onClick={this.handleSave}>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={this.handleSave}
+                                        >
                                             Save
                                         </button>
                                     </div>
