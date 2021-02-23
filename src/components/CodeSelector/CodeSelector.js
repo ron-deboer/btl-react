@@ -16,6 +16,7 @@ class CodeSelector extends Component {
                     className="form-control-inline form-control-sm"
                     id={this.props.name}
                     name={this.props.name}
+                    value={this.props.value}
                     onChange={(e) => this.props.onChange(this.props.name, e)}
                 >
                     {this.props.options.map((c) => (

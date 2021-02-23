@@ -32,7 +32,7 @@ class ItemEditor extends Component {
 
     componentDidMount() {
         MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (payload) => {
-            if (payload.target == 'itemeditor') {
+            if (payload.target === 'itemeditor') {
                 this.setState({ model: payload.data });
                 if (payload.data !== null) {
                     this.openModal();
@@ -83,7 +83,12 @@ class ItemEditor extends Component {
     }
 
     handleSave() {
-        this.itemService.updateItem(this.state.model);
+        this.state.itemService.updateItem(this.state.model);
+        const payload = {
+            target: 'home,items',
+            data: this.state.model,
+        };
+        MessageBus.emit(AppConstants.MSG_REFRESH_DATA, payload);
         this.closeModal();
     }
 
@@ -157,6 +162,7 @@ class ItemEditor extends Component {
                                                 <div className="caption">Kanban Board</div>
                                                 <CodeSelector
                                                     name="boardcode"
+                                                    value={this.state.model.boardcode}
                                                     options={this.getSelectOptions('id', 'BOARD')}
                                                     onChange={this.handleChange}
                                                 />
@@ -165,6 +171,7 @@ class ItemEditor extends Component {
                                                 <div className="caption">Project</div>
                                                 <CodeSelector
                                                     name="projectcode"
+                                                    value={this.state.model.projectcode}
                                                     options={this.getSelectOptions('id', 'PROJECT')}
                                                     onChange={this.handleChange}
                                                 />
@@ -173,6 +180,7 @@ class ItemEditor extends Component {
                                                 <div className="caption">Priority</div>
                                                 <CodeSelector
                                                     name="prioritycode"
+                                                    value={this.state.model.prioritycode}
                                                     options={this.getSelectOptions('id', 'PRIORITY')}
                                                     onChange={this.handleChange}
                                                 />
@@ -181,6 +189,7 @@ class ItemEditor extends Component {
                                                 <div className="caption">Size</div>
                                                 <CodeSelector
                                                     name="sizecode"
+                                                    value={this.state.model.sizecode}
                                                     options={this.getSelectOptions('id', 'SIZE')}
                                                     onChange={this.handleChange}
                                                 />
@@ -189,6 +198,7 @@ class ItemEditor extends Component {
                                                 <div className="caption">Status</div>
                                                 <CodeSelector
                                                     name="statuscode"
+                                                    value={this.state.model.statuscode}
                                                     options={this.getSelectOptions('id', 'STATUS')}
                                                     onChange={this.handleChange}
                                                 />
@@ -197,6 +207,7 @@ class ItemEditor extends Component {
                                                 <div className="caption">Assigned To</div>
                                                 <CodeSelector
                                                     name="assignedtouser"
+                                                    value={this.state.model.assignedtouser}
                                                     options={this.getSelectOptions('id', 'ASSIGNED')}
                                                     onChange={this.handleChange}
                                                 />
@@ -217,18 +228,10 @@ class ItemEditor extends Component {
                                         </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button
-                                            type="button"
-                                            className="btn btn-secondary"
-                                            onClick={this.closeModal}
-                                        >
+                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>
                                             Close
                                         </button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={this.handleSave}
-                                        >
+                                        <button type="button" className="btn btn-primary" onClick={this.handleSave}>
                                             Save
                                         </button>
                                     </div>
