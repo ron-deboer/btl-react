@@ -6,6 +6,9 @@ import CodeService from '../../_services/Codeservice';
 import Column from './Column';
 import SelectCode from './Selectcode';
 
+import AppConstants from '../../appconstants';
+import MessageBus from '../../_services/Messagebus';
+
 import './home.scss';
 import './card.scss';
 
@@ -21,6 +24,16 @@ class Home extends Component {
     codes = [];
 
     componentDidMount() {
+        this.fetchData();
+        MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
+            if (payload.target.indexOf('home') > -1) {
+                this.fetchData();
+                this.setState({ loading: new Date().getTime() });
+            }
+        });
+    }
+
+    fetchData() {
         let prArray = [];
         prArray.push(
             this.state.itemService.getAll().then((resp) => {
@@ -34,7 +47,7 @@ class Home extends Component {
         );
         Promise.all(prArray).then((values) => {
             this.getCards(this.state.boardcode);
-            this.setState({ loading: false });
+            this.setState({ loading: new Date().getTime() });
         });
     }
 
