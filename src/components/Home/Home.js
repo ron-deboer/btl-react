@@ -37,12 +37,12 @@ class Home extends Component {
         let prArray = [];
         prArray.push(
             this.state.itemService.getAll().then((resp) => {
-                this.items = JSON.parse(resp);
+                this.items = resp;
             })
         );
         prArray.push(
             this.state.codeService.getAll().then((resp) => {
-                this.codes = JSON.parse(resp);
+                this.codes = resp;
             })
         );
         Promise.all(prArray).then((values) => {

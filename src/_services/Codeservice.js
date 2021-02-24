@@ -22,7 +22,9 @@ class CodeService {
             body: null,
         };
         const url = `${config.apiUrl}/code/getall`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => {
+            return JSON.parse(response.json());
+        });
     }
 
     updateCode(data) {
@@ -32,7 +34,7 @@ class CodeService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/code/update`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => JSON.parse(response.json()));
     }
 
     insertCode(data) {
@@ -42,7 +44,7 @@ class CodeService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/code/insert`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => JSON.parse(response.json()));
     }
 }
 

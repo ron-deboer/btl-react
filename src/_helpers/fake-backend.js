@@ -157,20 +157,23 @@ export function InitFakeBackend() {
              */
             function ok(body) {
                 resolve({
-                    ok: true,
-                    json: () => Promise.resolve(JSON.stringify(body)),
+                    status: 200,
+                    json: () => JSON.stringify(body),
                 });
             }
 
             function unauthorized() {
                 resolve({
                     status: 401,
-                    json: () => Promise.resolve(JSON.stringify({ message: 'Unauthorized' })),
+                    json: () => JSON.stringify({ message: 'Unauthorized' }),
                 });
             }
 
             function error(message) {
-                resolve({ status: 400, json: () => Promise.resolve(JSON.stringify({ message })) });
+                resolve({
+                    status: 400,
+                    json: () => JSON.stringify({ message }),
+                });
             }
 
             function idFromUrl() {

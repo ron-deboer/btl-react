@@ -22,7 +22,9 @@ class UserService {
             body: null,
         };
         const url = `${config.apiUrl}/user/getall`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => {
+            return JSON.parse(response.json());
+        });
     }
 
     authenticate(data) {
@@ -33,7 +35,7 @@ class UserService {
         };
         const url = `${config.apiUrl}/user/authenticate`;
         return fetch(url, requestOptions).then((response) => {
-            return response.json();
+            return JSON.parse(response.json());
         });
     }
 
@@ -44,7 +46,9 @@ class UserService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/user/update`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => {
+            return JSON.parse(response.json());
+        });
     }
 
     insertUser(data) {
@@ -54,7 +58,7 @@ class UserService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/user/insert`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => JSON.parse(response.json()));
     }
 }
 

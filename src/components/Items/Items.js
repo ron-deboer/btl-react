@@ -77,7 +77,7 @@ class Items extends Component {
 
     componentDidMount() {
         this.state.itemService.getAll().then((resp) => {
-            this.items = JSON.parse(resp);
+            this.items = resp;
             this.setState({ loading: false });
         });
     }

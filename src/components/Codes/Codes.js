@@ -56,7 +56,7 @@ class Codes extends Component {
 
     componentDidMount() {
         this.state.codeService.getAll().then((resp) => {
-            this.codes = JSON.parse(resp);
+            this.codes = resp;
             this.setState({ loading: false });
         });
     }
