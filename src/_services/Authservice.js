@@ -33,7 +33,7 @@ class AuthService {
         const dat = enc.toString();
         return this.userService.authenticate({ dat: dat }).then(
             (user) => {
-                this.user = JSON.parse(user);
+                this.user = user;
                 sessionStorage.setItem('user', JSON.stringify(this.user));
                 this.authenticated = true;
                 return { isLoggedIn: true, user: { name: this.user.name } };

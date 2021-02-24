@@ -42,10 +42,10 @@ class ItemEditor extends Component {
             }
         });
         this.state.codeService.getAll().then((resp) => {
-            this.codes = JSON.parse(resp);
+            this.codes = resp;
         });
         this.state.userService.getAll().then((resp) => {
-            this.users = JSON.parse(resp);
+            this.users = resp;
         });
     }
 
@@ -228,10 +228,18 @@ class ItemEditor extends Component {
                                         </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>
+                                        <button
+                                            type="button"
+                                            className="btn btn-secondary"
+                                            onClick={this.closeModal}
+                                        >
                                             Close
                                         </button>
-                                        <button type="button" className="btn btn-primary" onClick={this.handleSave}>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={this.handleSave}
+                                        >
                                             Save
                                         </button>
                                     </div>

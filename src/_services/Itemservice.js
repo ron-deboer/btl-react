@@ -22,7 +22,9 @@ class ItemService {
             body: null,
         };
         const url = `${config.apiUrl}/item/getall`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => {
+            return JSON.parse(response.json());
+        });
     }
 
     updateItem(data) {
@@ -32,7 +34,7 @@ class ItemService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/item/update`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => JSON.parse(response.json()));
     }
 
     insertItem(data) {
@@ -42,7 +44,7 @@ class ItemService {
             body: JSON.stringify(data),
         };
         const url = `${config.apiUrl}/item/insert`;
-        return fetch(url, requestOptions).then((response) => response.json());
+        return fetch(url, requestOptions).then((response) => JSON.parse(response.json()));
     }
 }
 

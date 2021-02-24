@@ -61,7 +61,7 @@ class Users extends Component {
 
     componentDidMount() {
         this.state.userService.getAll().then((resp) => {
-            this.users = JSON.parse(resp);
+            this.users = resp;
             this.setState({ loading: false });
         });
     }
