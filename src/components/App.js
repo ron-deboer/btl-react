@@ -8,7 +8,7 @@ import ItemEditor from './Items/Itemeditor';
 import CodeEditor from './Codes/Codeeditor';
 import UserEditor from './Users/Usereditor';
 
-const Main = (props) => {
+const App = (props) => {
     useState(() => {
         FakeDataLoader();
         InitFakeBackend();
@@ -32,4 +32,4 @@ const Main = (props) => {
     );
 };
 
-export default Main;
+export default App;

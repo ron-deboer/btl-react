@@ -12,10 +12,8 @@ import AuthService from '../../_services/Authservice';
 
 const Router = (props) => (
     <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/logout" component={Logout} />
-
-        <PrivateRoute path="/kanban" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
         <PrivateRoute path="/reports" component={Reports} />
         <PrivateRoute path="/users" component={Users} />
         <PrivateRoute path="/codes" component={Codes} />
