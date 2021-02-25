@@ -30,7 +30,7 @@ class Header extends Component {
                     <div className="collapse navbar-collapse" id="navbarCollapse8">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <NavLink exact to="/kanban" className="nav-link">
+                                <NavLink exact to="/" className="nav-link">
                                     Kanban
                                 </NavLink>
                             </li>
