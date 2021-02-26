@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import counter from './Counter';
 
 import Header from './Header/Header';
 import Router from './Router/Router';
-import { FakeDataLoader } from '../_helpers/fake-data';
-import { InitFakeBackend } from '../_helpers/fake-backend';
 import ItemEditor from './Items/Itemeditor';
 import CodeEditor from './Codes/Codeeditor';
 import UserEditor from './Users/Usereditor';
 
 const App = (props) => {
-    useState(() => {
-        FakeDataLoader();
-        InitFakeBackend();
-    });
     let appStyle = {
         width: '80%',
         margin: 'auto',
