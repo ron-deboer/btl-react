@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import counter from './Counter';
 
 import Header from './Header/Header';
 import Router from './Router/Router';

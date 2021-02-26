@@ -9,6 +9,8 @@ import SelectCode from './Selectcode';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
+import withAppStore from '../../_store/withappstore';
+
 import './home.scss';
 import './card.scss';
 
@@ -23,7 +25,12 @@ class Home extends Component {
     cards = [];
     codes = [];
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
+        console.log('componentDidMount', this.props);
         this.fetchData();
         MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
             if (payload.target.indexOf('home') > -1) {
@@ -31,6 +38,11 @@ class Home extends Component {
                 this.setState({ loading: new Date().getTime() });
             }
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log('componentDidUpdate prevProps', prevProps);
+        console.log('componentDidUpdate', this.props);
     }
 
     fetchData() {
@@ -72,6 +84,7 @@ class Home extends Component {
     };
 
     render() {
+        // const { user } = this.props.appStore;
         return (
             <div className="home-container">
                 <form>
@@ -106,4 +119,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withAppStore(Home);
