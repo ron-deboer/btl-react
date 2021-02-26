@@ -30,7 +30,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount', this.props);
         this.fetchData();
         MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
             if (payload.target.indexOf('home') > -1) {
@@ -40,10 +39,7 @@ class Home extends Component {
         });
     }
 
-    componentDidUpdate(prevProps) {
-        console.log('componentDidUpdate prevProps', prevProps);
-        console.log('componentDidUpdate', this.props);
-    }
+    componentDidUpdate(prevProps) {}
 
     fetchData() {
         let prArray = [];
@@ -84,7 +80,7 @@ class Home extends Component {
     };
 
     render() {
-        // const { user } = this.props.appStore;
+        const { user } = this.props.appStore;
         return (
             <div className="home-container">
                 <form>
