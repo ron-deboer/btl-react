@@ -75,7 +75,6 @@ class Home extends Component {
 
     render() {
         const { user } = this.props.appStore;
-        console.log(user);
         return (
             <div className="home-container">
                 <form>
