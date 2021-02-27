@@ -1,6 +1,13 @@
 .bg-custom {
+    font-size: 2.2vh;
     margin-top: 2px;
     background: linear-gradient(110deg, #727d7a 60%, #9e8a59 60%);
+    .appname {
+        font-size: 2.2vh;
+    }
+    .nav-item {
+        font-size: 1.75vh;
+    }
     .dropdown-menu {
         background-color: #a96;
     }

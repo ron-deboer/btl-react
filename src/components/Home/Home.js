@@ -9,6 +9,8 @@ import SelectCode from './Selectcode';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
+import withAppStore from '../../_store/withappstore';
+
 import './home.scss';
 import './card.scss';
 
@@ -23,6 +25,10 @@ class Home extends Component {
     cards = [];
     codes = [];
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         this.fetchData();
         MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
@@ -32,6 +38,8 @@ class Home extends Component {
             }
         });
     }
+
+    componentDidUpdate(prevProps) {}
 
     fetchData() {
         let prArray = [];
@@ -72,14 +80,13 @@ class Home extends Component {
     };
 
     render() {
+        const { user } = this.props.appStore;
         return (
             <div className="home-container">
                 <form>
                     <div className="header">
                         <div className="title">
-                            <h5>
-                                Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
-                            </h5>
+                            Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
                         </div>
                         <SelectCode
                             caption="Kanban Board"
@@ -106,4 +113,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withAppStore(Home);

@@ -18,7 +18,7 @@ class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-custom">
-                <a href="#" className="navbar-brand">
+                <a href="#" className="navbar-brand appname">
                     Bug Tracker Lite
                 </a>
                 <div className="title">

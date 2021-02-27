@@ -1,25 +1,26 @@
 .home-container {
     max-height: 100%;
     overflow: hidden;
+
     .header {
         display: grid;
         grid-template-columns: auto 20% 20%;
-        padding: 10px;
+        padding: 5px;
         .title {
-            h5 {
-                color: #b84;
-                .boardcode {
-                    color: white;
-                    background-color: #b84;
-                    text-transform: uppercase;
-                    padding: 0px 6px;
-                    .btn-edit:focus {
-                        outline: 0;
-                    }
-                }
+            font-size: 2.25vh;
+            color: #b84;
+            .boardcode {
+                color: #727d7a;
+                text-transform: uppercase;
+                padding: 0px 6px;
+                font-weight: 600;
             }
         }
-        .select {
+        .selectcode {
+            font-size: 1.75vh;
+            select {
+                font-size: 1.75vh;
+            }
             color: #788;
             text-align: right;
             .text {
@@ -49,25 +50,22 @@
         padding: 0px 20px;
         color: #788;
         .column {
-            height: calc(100vh - 130px);
+            height: calc(100vh - 120px);
             overflow-x: hidden;
             overflow-y: auto;
             .header {
                 display: grid;
                 grid-template-columns: 90% auto;
                 padding: 10px 20px;
-                font-weight: 700;
+                font-weight: 600;
                 .btn-edit {
-                    line-height: 14px;
+                    line-height: 1.75vh;
+                    font-size: 1.75vh;
                     cursor: pointer;
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     background-color: #d93;
                     color: white;
-                    .icon {
-                        height: 14px;
-                        width: 12px;
-                    }
                 }
                 .btn-edit:focus {
                     outline: 0;
