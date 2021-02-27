@@ -4,6 +4,7 @@ import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
 import AuthService from '../../_services/Authservice';
+import { appstore } from '../../_store/appstore';
 
 import './login.scss';
 
@@ -25,6 +26,10 @@ class Login extends Component {
     handleLogin() {
         this.authService.login(this.state.username, this.state.password).then((resp) => {
             if (resp.isLoggedIn) {
+                appstore.updateUser({
+                    userName: this.state.username,
+                    isLoggedIn: true,
+                });
                 MessageBus.emit(AppConstants.MSG_LOGGED_IN, resp);
                 this.setState({ redirectToReferrer: true });
             }
