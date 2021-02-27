@@ -25,10 +25,6 @@ class Home extends Component {
     cards = [];
     codes = [];
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.fetchData();
         MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
@@ -38,8 +34,6 @@ class Home extends Component {
             }
         });
     }
-
-    componentDidUpdate(prevProps) {}
 
     fetchData() {
         let prArray = [];
