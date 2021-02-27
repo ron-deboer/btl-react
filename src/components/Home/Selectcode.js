@@ -7,7 +7,7 @@ class SelectCode extends Component {
 
     render() {
         return (
-            <div className="select">
+            <div className="selectcode">
                 <span className="text">{this.props.caption}</span>
                 <select
                     className="form-control-inline form-control-sm dropdown"

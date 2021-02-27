@@ -86,9 +86,7 @@ class Home extends Component {
                 <form>
                     <div className="header">
                         <div className="title">
-                            <h5>
-                                Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
-                            </h5>
+                            Kanban Board - <span className="boardcode">{this.state.boardcode}</span>
                         </div>
                         <SelectCode
                             caption="Kanban Board"

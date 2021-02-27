@@ -6,6 +6,7 @@ import { FakeDataLoader } from './_helpers/fake-data';
 import { InitFakeBackend } from './_helpers/fake-backend';
 
 import App from './components/App';
+
 import './index.scss';
 
 FakeDataLoader();
