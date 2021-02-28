@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/btl-react/static/css/main.6e57baf4.chunk.css",
-    "main.js": "/btl-react/static/js/main.54bc315d.chunk.js",
-    "main.js.map": "/btl-react/static/js/main.54bc315d.chunk.js.map",
+    "main.js": "/btl-react/static/js/main.877854db.chunk.js",
+    "main.js.map": "/btl-react/static/js/main.877854db.chunk.js.map",
     "runtime-main.js": "/btl-react/static/js/runtime-main.b9ddad9d.js",
     "runtime-main.js.map": "/btl-react/static/js/runtime-main.b9ddad9d.js.map",
-    "static/js/2.32b121a5.chunk.js": "/btl-react/static/js/2.32b121a5.chunk.js",
-    "static/js/2.32b121a5.chunk.js.map": "/btl-react/static/js/2.32b121a5.chunk.js.map",
+    "static/js/2.887a6d52.chunk.js": "/btl-react/static/js/2.887a6d52.chunk.js",
+    "static/js/2.887a6d52.chunk.js.map": "/btl-react/static/js/2.887a6d52.chunk.js.map",
     "index.html": "/btl-react/index.html",
     "static/css/main.6e57baf4.chunk.css.map": "/btl-react/static/css/main.6e57baf4.chunk.css.map",
-    "static/js/2.32b121a5.chunk.js.LICENSE.txt": "/btl-react/static/js/2.32b121a5.chunk.js.LICENSE.txt"
+    "static/js/2.887a6d52.chunk.js.LICENSE.txt": "/btl-react/static/js/2.887a6d52.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b9ddad9d.js",
-    "static/js/2.32b121a5.chunk.js",
+    "static/js/2.887a6d52.chunk.js",
     "static/css/main.6e57baf4.chunk.css",
-    "static/js/main.54bc315d.chunk.js"
+    "static/js/main.877854db.chunk.js"
   ]
 }
