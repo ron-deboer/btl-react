@@ -29,7 +29,6 @@ const Home = (props) => {
     }, [props.appStore.codes, props.appStore.items]);
 
     const getCards = (boardcode) => {
-        console.log(boardcode);
         setCards(props.appStore.items.filter((x) => x.boardcode === boardcode));
     };
 
@@ -45,7 +44,6 @@ const Home = (props) => {
     };
 
     const handleChange = (name, e) => {
-        console.log('111', name, e.target.value);
         if (name == 'boardcode') {
             setBoardCode(e.target.value);
             getCards(e.target.value);
