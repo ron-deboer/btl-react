@@ -12,16 +12,9 @@ class Column extends Component {
             <div className="column">
                 <div className="header">
                     <div className="title">{this.props.title} Items</div>
-                    <div>
-                        <button
-                            className="btn-edit"
-                            data-title="Edit"
-                            data-toggle="modal"
-                            data-target="#edit"
-                        >
-                            <i className="fa fa-plus fa-xs icon"></i>
-                        </button>
-                    </div>
+                    <button className="btn-edit" data-title="Edit" data-toggle="modal" data-target="#edit">
+                        <i className="fa fa-plus fa-xs icon"></i>
+                    </button>
                 </div>
                 <ul className="open-items items">
                     {this.props.items.map((card, i) => (

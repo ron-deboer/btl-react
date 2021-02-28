@@ -5,10 +5,12 @@ const WithAppStore = (WrappedComponent) => {
     return function WithAppStoreComponent({ appStore, ...props }) {
         const [store, setStore] = useState(initialstoredata);
         let subscription = null;
+
         useEffect(() => {
             subscription = appstore.observable.subscribe((data) => {
                 setStore(data);
             });
+            appstore.fetchItemsAndCodes();
             return () => {
                 subscription.unsubscribe();
             };

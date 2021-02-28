@@ -14,46 +14,27 @@ import './card.scss';
 const Home = (props) => {
     const [boardcode, setBoardCode] = useState('Dev');
     const [loading, setLoading] = useState(false);
-    const itemService = ItemService.instance;
-    const codeService = CodeService.instance;
-    const [items, setItems] = useState([]);
-    const [codes, setCodes] = useState([]);
     const [cards, setCards] = useState([]);
 
+    // didMount
     useEffect(() => {
-        fetchData();
-        MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
-            if (payload.target.indexOf('home') > -1) {
-                fetchData();
-                setLoading(new Date().getTime());
-            }
-        });
+        getCards(boardcode);
+        setLoading(new Date().getTime());
     }, []);
 
-    const fetchData = () => {
-        let prArray = [];
-        prArray.push(
-            itemService.getAll().then((resp) => {
-                setItems(resp);
-            })
-        );
-        prArray.push(
-            codeService.getAll().then((resp) => {
-                setCodes(resp);
-            })
-        );
-        Promise.all(prArray).then((values) => {
-            getCards(boardcode);
-            setLoading(new Date().getTime());
-        });
-    };
+    // onUpdate
+    useEffect(() => {
+        getCards(boardcode);
+        setLoading(new Date().getTime());
+    }, [props.appStore.codes, props.appStore.items]);
 
     const getCards = (boardcode) => {
-        setCards(items.filter((x) => x.boardcode === boardcode));
+        console.log(boardcode);
+        setCards(props.appStore.items.filter((x) => x.boardcode === boardcode));
     };
 
     const getSelectOptions = (key, codeType) => {
-        return codes
+        return props.appStore.codes
             .filter((x) => x.codetype === codeType)
             .map((x) => {
                 return {
@@ -64,8 +45,11 @@ const Home = (props) => {
     };
 
     const handleChange = (name, e) => {
-        getCards(e.target.value);
-        setBoardCode(e.target.value);
+        console.log('111', name, e.target.value);
+        if (name == 'boardcode') {
+            setBoardCode(e.target.value);
+            getCards(e.target.value);
+        }
     };
 
     if (loading === false) {
