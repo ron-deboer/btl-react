@@ -14,35 +14,41 @@ import './card.scss';
 const Home = (props) => {
     const [boardcode, setBoardCode] = useState('Dev');
     const [loading, setLoading] = useState(false);
-    const itemService = ItemService.instance;
-    const codeService = CodeService.instance;
     const [items, setItems] = useState([]);
     const [codes, setCodes] = useState([]);
     const [cards, setCards] = useState([]);
+    const [itemService, setItemService] = useState(ItemService.instance);
+    const [codeService, setCodeService] = useState(CodeService.instance);
 
     useEffect(() => {
+        console.log('useEffect');
         fetchData();
-        MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
-            if (payload.target.indexOf('home') > -1) {
-                fetchData();
-                setLoading(new Date().getTime());
-            }
-        });
+        // MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
+        //     if (payload.target.indexOf('home') > -1) {
+        //         fetchData();
+        //         setLoading(new Date().getTime());
+        //     }
+        // });
     }, []);
 
     const fetchData = () => {
         let prArray = [];
         prArray.push(
             itemService.getAll().then((resp) => {
-                setItems(resp);
+                setItems(() => resp);
+                return resp;
             })
         );
         prArray.push(
             codeService.getAll().then((resp) => {
-                setCodes(resp);
+                setCodes(() => resp);
+                return resp;
             })
         );
         Promise.all(prArray).then((values) => {
+            console.log('values', values);
+            console.log('222', codes);
+            console.log('333', items);
             getCards(boardcode);
             setLoading(new Date().getTime());
         });
