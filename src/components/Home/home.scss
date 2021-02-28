@@ -1,13 +1,15 @@
+$font-size: 1vw;
+$font-size-select: 0.75vw;
+$font-size-column-title: 0.75vw;
 .home-container {
     max-height: 100%;
     overflow: hidden;
-
     .header {
         display: grid;
         grid-template-columns: auto 20% 20%;
         padding: 5px;
         .title {
-            font-size: 2.25vh;
+            font-size: $font-size;
             color: #b84;
             .boardcode {
                 color: #727d7a;
@@ -17,11 +19,12 @@
             }
         }
         .selectcode {
-            font-size: 1.75vh;
-            select {
-                font-size: 1.75vh;
-            }
             color: #788;
+            font-size: $font-size-select;
+            margin: 0px 10px;
+            select {
+                font-size: $font-size-select;
+            }
             text-align: right;
             .text {
                 margin-right: 10px;
@@ -54,18 +57,25 @@
             overflow-x: hidden;
             overflow-y: auto;
             .header {
+                font-size: $font-size-column-title;
                 display: grid;
                 grid-template-columns: 90% auto;
                 padding: 10px 20px;
                 font-weight: 600;
+                .title {
+                }
                 .btn-edit {
-                    line-height: 1.75vh;
-                    font-size: 1.75vh;
+                    line-height: $font-size-column-title;
+                    font-size: $font-size-column-title;
                     cursor: pointer;
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     background-color: #d93;
                     color: white;
+                    .icon {
+                        line-height: $font-size-column-title;
+                        font-size: $font-size-column-title;
+                    }
                 }
                 .btn-edit:focus {
                     outline: 0;
@@ -75,7 +85,7 @@
                 list-style-type: none;
                 margin: 5px;
                 padding: 0px 10px;
-                font-size: 1.75vh;
+                font-size: $font-size;
                 font-weight: 600;
             }
         }
