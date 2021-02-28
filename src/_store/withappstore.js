@@ -14,7 +14,7 @@ const WithAppStore = (WrappedComponent) => {
             });
             appstore.fetchItemsAndCodes();
             MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
-                if (payload.target.indexOf('home') > -1) {
+                if (payload.target.indexOf('itemsandcodes') > -1) {
                     appstore.fetchItemsAndCodes();
                 }
             });

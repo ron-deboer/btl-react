@@ -85,7 +85,7 @@ class ItemEditor extends Component {
     handleSave() {
         this.state.itemService.updateItem(this.state.model);
         const payload = {
-            target: 'home,items',
+            target: 'itemsandcodes',
             data: this.state.model,
         };
         MessageBus.emit(AppConstants.MSG_REFRESH_DATA, payload);
