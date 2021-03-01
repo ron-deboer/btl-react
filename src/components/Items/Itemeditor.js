@@ -94,7 +94,7 @@ class ItemEditor extends Component {
         }
 
         let promise = null;
-        if (this.state.model > 0) {
+        if (this.state.model.id > 0) {
             promise = this.state.itemService.updateItem(this.state.model);
         } else {
             promise = this.state.itemService.insertItem(this.state.model);
