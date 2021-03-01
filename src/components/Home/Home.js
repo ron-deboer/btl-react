@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import ItemService from '../../_services/Itemservice';
-import CodeService from '../../_services/Codeservice';
 import Column from './Column';
 import SelectCode from './Selectcode';
-import AppConstants from '../../appconstants';
-import MessageBus from '../../_services/Messagebus';
 import withAppStore from '../../_store/withappstore';
 
 import './home.scss';
@@ -44,7 +40,7 @@ const Home = (props) => {
     };
 
     const handleChange = (name, e) => {
-        if (name == 'boardcode') {
+        if (name === 'boardcode') {
             setBoardCode(e.target.value);
             getCards(e.target.value);
         }
@@ -76,10 +72,30 @@ const Home = (props) => {
                 </div>
             </form>
             <div className="main">
-                <Column title="Open" items={cards.filter((x) => x.statuscode === 'Open')} />
-                <Column title="Assigned" items={cards.filter((x) => x.statuscode === 'Assigned')} />
-                <Column title="In Review" items={cards.filter((x) => x.statuscode === 'Review')} />
-                <Column title="Closed" items={cards.filter((x) => x.statuscode === 'Closed')} />
+                <Column
+                    title="Open"
+                    items={cards.filter((x) => x.statuscode === 'Open')}
+                    statuscode="Open"
+                    boardcode={boardcode}
+                />
+                <Column
+                    title="Assigned"
+                    items={cards.filter((x) => x.statuscode === 'Assigned')}
+                    statuscode="Assigned"
+                    boardcode={boardcode}
+                />
+                <Column
+                    title="In Review"
+                    items={cards.filter((x) => x.statuscode === 'Review')}
+                    statuscode="Review"
+                    boardcode={boardcode}
+                />
+                <Column
+                    title="Closed"
+                    items={cards.filter((x) => x.statuscode === 'Closed')}
+                    statuscode="Closed"
+                    boardcode={boardcode}
+                />
             </div>
         </div>
     );

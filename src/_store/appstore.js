@@ -42,6 +42,14 @@ class AppStore {
             this.observable.next(dat);
         });
     };
+
+    getNewItemId() {
+        const last = this.observable
+            .getValue()
+            .items.sort((i1, i2) => (parseInt(i1.id, 10) > parseInt(i2.id, 10) ? 1 : -1))
+            .slice(-1)[0];
+        return last.id + 1;
+    }
 }
 const appstore = new AppStore();
 export { appstore, initialstoredata };
