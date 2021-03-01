@@ -1,4 +1,5 @@
 import config from '../config';
+import { appstore } from '../_store/appstore';
 
 const singleton = Symbol();
 const singletonEnforcer = Symbol();
@@ -38,6 +39,7 @@ class ItemService {
     }
 
     insertItem(data) {
+        data.id = appstore.getNewItemId();
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

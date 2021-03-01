@@ -65,7 +65,7 @@ class ItemEditor extends Component {
 
     getSelectOptions(key, codeType) {
         if (codeType !== 'ASSIGNED') {
-            return this.codes
+            let codelist = this.codes
                 .filter((x) => x.codetype === codeType)
                 .map((x) => {
                     return {
@@ -73,23 +73,50 @@ class ItemEditor extends Component {
                         code: x.code,
                     };
                 });
+            codelist.unshift({ key: codeType + '_0', code: '' });
+            return codelist;
         }
-        return this.users.map((x) => {
+        let userlist = this.users.map((x) => {
             return {
                 key: codeType + '_' + x.id,
                 code: x.username,
             };
         });
+        userlist.unshift({ key: codeType + '_0', code: '' });
+        return userlist;
     }
 
     handleSave() {
-        this.state.itemService.updateItem(this.state.model);
-        const payload = {
-            target: 'itemsandcodes',
-            data: this.state.model,
-        };
-        MessageBus.emit(AppConstants.MSG_REFRESH_DATA, payload);
-        this.closeModal();
+        const error = this.validate();
+        if (error !== '') {
+            alert(error);
+            return;
+        }
+
+        let promise = null;
+        if (this.state.model > 0) {
+            promise = this.state.itemService.updateItem(this.state.model);
+        } else {
+            promise = this.state.itemService.insertItem(this.state.model);
+        }
+        promise.then((resp) => {
+            const payload = {
+                target: 'itemsandcodes',
+                data: this.state.model,
+            };
+            MessageBus.emit(AppConstants.MSG_REFRESH_DATA, payload);
+            this.closeModal();
+        });
+    }
+
+    validate() {
+        if (this.state.model.title === '') {
+            return 'You must enter a title';
+        }
+        if (this.state.model.boardcode === '') {
+            return 'You must enter a boardcode';
+        }
+        return '';
     }
 
     handleChange(name, e) {
@@ -102,6 +129,7 @@ class ItemEditor extends Component {
         if (!this.state.model) {
             return null;
         }
+        const title = this.state.model.id === 0 ? 'Create New Item' : 'Edit Item ' + this.state.model.id;
         return (
             <div className="modale" aria-hidden="true" style={{ display: this.state.display }}>
                 <div
@@ -117,7 +145,7 @@ class ItemEditor extends Component {
                             <form className="needs-validation">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title">Edit Item {this.state.model.id}</h5>
+                                        <h5 className="modal-title">{title}</h5>
                                         <button
                                             type="button"
                                             className="close"
@@ -228,18 +256,10 @@ class ItemEditor extends Component {
                                         </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button
-                                            type="button"
-                                            className="btn btn-secondary"
-                                            onClick={this.closeModal}
-                                        >
+                                        <button type="button" className="btn btn-secondary" onClick={this.closeModal}>
                                             Close
                                         </button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={this.handleSave}
-                                        >
+                                        <button type="button" className="btn btn-primary" onClick={this.handleSave}>
                                             Save
                                         </button>
                                     </div>
