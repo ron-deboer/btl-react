@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import DataTable from 'react-data-table-component';
 
@@ -8,15 +8,12 @@ import MessageBus from '../../_services/Messagebus';
 
 import './items.scss';
 
-class Items extends Component {
-    state = {
-        itemService: ItemService.instance,
-        item: null,
-        loading: true,
-    };
-    items = [];
-    codes = [];
-    columns = [
+const Items = (props) => {
+    const [item, setItem] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [items, setItems] = useState([]);
+    const itemService = ItemService.instance;
+    const columns = [
         {
             name: 'Id',
             selector: 'id',
@@ -58,7 +55,7 @@ class Items extends Component {
                 <button
                     className="btn-edit"
                     onClick={(e) => {
-                        this.handleEditClick(row);
+                        handleEditClick(row);
                     }}
                 >
                     <i className="fa fa-pencil fa-xs"></i>
@@ -70,21 +67,25 @@ class Items extends Component {
         },
     ];
 
-    constructor(props) {
-        super(props);
-        this.handleEditClick = this.handleEditClick.bind(this);
-    }
-
-    componentDidMount() {
-        this.state.itemService.getAll().then((resp) => {
-            this.items = resp;
-            this.setState({ loading: false });
+    // didMount
+    useEffect(() => {
+        MessageBus.listenFor(AppConstants.MSG_REFRESH_DATA, (payload) => {
+            if (payload.target.indexOf('itemlist') > -1) {
+                fetchData();
+            }
         });
-    }
+        fetchData();
+    }, []);
 
-    handleEditClick = (row) => {
+    const fetchData = () => {
+        itemService.getAll().then((resp) => {
+            setItems(resp);
+        });
+    };
+
+    const handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
-        const item = this.items.find((x) => x.id === id);
+        const item = items.find((x) => x.id === id);
         const payload = {
             target: 'itemeditor',
             data: item,
@@ -92,14 +93,12 @@ class Items extends Component {
         MessageBus.emit(AppConstants.MSG_OPEN_MODAL, payload);
     };
 
-    render() {
-        return (
-            <div className="items-table">
-                <h5>Items</h5>
-                <DataTable striped="true" columns={this.columns} data={this.items} />
-            </div>
-        );
-    }
-}
+    return (
+        <div className="items-table">
+            <h5>Items</h5>
+            <DataTable striped="true" columns={columns} data={items} />
+        </div>
+    );
+};
 
 export default Items;

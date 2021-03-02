@@ -13,6 +13,7 @@ const CodeEditor = (props) => {
     const [codeTypes, setCodeTypes] = useState(Object.values(ECodeType));
     const [modalStatus, setModalStatus] = useState({ modalShow: '', display: 'none' });
     const codeService = CodeService.instance;
+
     // didMount
     useEffect(() => {
         MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (payload) => {
