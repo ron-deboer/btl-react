@@ -9,8 +9,8 @@ import './codes.scss';
 
 const Codes = (props) => {
     const [loading, setLoading] = useState(false);
+    let [codes, setCodes] = useState([]);
     const codeService = CodeService.instance;
-    let codes = [];
     let columns = [
         {
             name: 'Id',
@@ -38,7 +38,7 @@ const Codes = (props) => {
                 <button
                     className="btn-edit"
                     onClick={(e) => {
-                        this.handleEditClick(row);
+                        handleEditClick(row);
                     }}
                 >
                     <i className="fa fa-pencil fa-xs"></i>
@@ -53,14 +53,13 @@ const Codes = (props) => {
     // didMount
     useEffect(() => {
         codeService.getAll().then((resp) => {
-            codes = resp;
-            setLoading(new Date().getTime());
+            setCodes(resp);
         });
     }, []);
 
     const handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
-        const code = this.codes.find((x) => x.id === id);
+        const code = codes.find((x) => x.id === id);
         const payload = {
             target: 'codeeditor',
             data: code,
@@ -71,7 +70,7 @@ const Codes = (props) => {
     return (
         <div className="codes-table">
             <h5>Codes</h5>
-            <DataTable striped="true" columns={this.columns} data={this.codes} />
+            <DataTable striped="true" columns={columns} data={codes} />
         </div>
     );
 };

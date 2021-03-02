@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import ItemService from '../../_services/Itemservice';
 import CodeService from '../../_services/Codeservice';
@@ -10,62 +10,54 @@ import MessageBus from '../../_services/Messagebus';
 
 import './itemeditor.scss';
 
-class ItemEditor extends Component {
-    state = {
-        itemService: ItemService.instance,
-        codeService: CodeService.instance,
-        userService: UserService.instance,
-        model: null,
-        modalShow: '',
-        display: 'none',
-    };
-    codes = [];
-    users = [];
+const ItemEditor = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [model, setModel] = useState(null);
+    const [modalStatus, setModalStatus] = useState({ modalShow: '', display: 'none' });
+    const [codes, setCodes] = useState([]);
+    const [users, setUsers] = useState([]);
+    const itemService = ItemService.instance;
+    const codeService = CodeService.instance;
+    const userService = UserService.instance;
 
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-    }
-
-    componentDidMount() {
+    // didMount
+    useEffect(() => {
         MessageBus.listenFor(AppConstants.MSG_OPEN_MODAL, (payload) => {
             if (payload.target === 'itemeditor') {
-                this.setState({ model: payload.data });
+                setModel(payload.data);
                 if (payload.data !== null) {
-                    this.openModal();
+                    openModal();
                 } else {
-                    this.closeModal();
+                    closeModal();
                 }
             }
         });
-        this.state.codeService.getAll().then((resp) => {
-            this.codes = resp;
+        codeService.getAll().then((resp) => {
+            setCodes(resp);
         });
-        this.state.userService.getAll().then((resp) => {
-            this.users = resp;
+        userService.getAll().then((resp) => {
+            setUsers(resp);
         });
-    }
+        setLoading(new Date().getTime());
+    }, []);
 
-    openModal() {
-        this.setState({
+    const openModal = () => {
+        setModalStatus({
             modalShow: 'show',
             display: 'block',
         });
-    }
+    };
 
-    closeModal() {
-        this.setState({
+    const closeModal = () => {
+        setModalStatus({
             modalShow: '',
             display: 'none',
         });
-    }
+    };
 
-    getSelectOptions(key, codeType) {
+    const getSelectOptions = (key, codeType) => {
         if (codeType !== 'ASSIGNED') {
-            let codelist = this.codes
+            let codelist = codes
                 .filter((x) => x.codetype === codeType)
                 .map((x) => {
                     return {
@@ -76,7 +68,7 @@ class ItemEditor extends Component {
             codelist.unshift({ key: codeType + '_0', code: '' });
             return codelist;
         }
-        let userlist = this.users.map((x) => {
+        let userlist = users.map((x) => {
             return {
                 key: codeType + '_' + x.id,
                 code: x.username,
@@ -84,201 +76,191 @@ class ItemEditor extends Component {
         });
         userlist.unshift({ key: codeType + '_0', code: '' });
         return userlist;
-    }
+    };
 
-    handleSave() {
-        const error = this.validate();
+    const handleSave = () => {
+        const error = validate();
         if (error !== '') {
             alert(error);
             return;
         }
 
         let promise = null;
-        if (this.state.model.id > 0) {
-            promise = this.state.itemService.updateItem(this.state.model);
+        if (model.id > 0) {
+            promise = itemService.updateItem(model);
         } else {
-            promise = this.state.itemService.insertItem(this.state.model);
+            promise = itemService.insertItem(model);
         }
         promise.then((resp) => {
             const payload = {
-                target: 'itemsandcodes',
-                data: this.state.model,
+                target: 'itemsandcodes,itemlist',
+                data: model,
             };
             MessageBus.emit(AppConstants.MSG_REFRESH_DATA, payload);
-            this.closeModal();
+            closeModal();
         });
-    }
+    };
 
-    validate() {
-        if (this.state.model.title === '') {
+    const validate = () => {
+        if (model.title === '') {
             return 'You must enter a title';
         }
-        if (this.state.model.boardcode === '') {
+        if (model.boardcode === '') {
             return 'You must enter a boardcode';
         }
         return '';
-    }
+    };
 
-    handleChange(name, e) {
-        let model = this.state.model;
-        model[name] = e.target.value;
-        this.setState({ model: model });
-    }
+    const handleChange = (name, e) => {
+        let tmp = Object.assign({}, model);
+        tmp[name] = e.target.value;
+        setModel(tmp);
+    };
 
-    render() {
-        if (!this.state.model) {
-            return null;
-        }
-        const title = this.state.model.id === 0 ? 'Create New Item' : 'Edit Item ' + this.state.model.id;
-        return (
-            <div className="modale" aria-hidden="true" style={{ display: this.state.display }}>
-                <div
-                    className={'modal fade ' + this.state.modalShow}
-                    id="modalItem"
-                    tabIndex="-1"
-                    role="dialog"
-                    aria-hidden="true"
-                    style={{ display: this.state.display }}
-                >
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <form className="needs-validation">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <h5 className="modal-title">{title}</h5>
-                                        <button
-                                            type="button"
-                                            className="close"
-                                            data-dismiss="modal"
-                                            aria-label="Close"
-                                            onClick={this.closeModal}
-                                        >
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+    if (!model) {
+        return null;
+    }
+    const title = model.id === 0 ? 'Create New Item' : 'Edit Item ' + model.id;
+    return (
+        <div className="modale" aria-hidden="true" style={{ display: modalStatus.display }}>
+            <div
+                className={'modal fade ' + modalStatus.modalShow}
+                id="modalItem"
+                tabIndex="-1"
+                role="dialog"
+                aria-hidden="true"
+                style={{ display: modalStatus.display }}
+            >
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <form className="needs-validation">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">{title}</h5>
+                                    <button
+                                        type="button"
+                                        className="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                        onClick={closeModal}
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="form-group">
+                                        <label className="label" htmlFor="title">
+                                            Title
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control form-control-sm input-sm"
+                                            id="title"
+                                            name="title"
+                                            value={model.title}
+                                            onChange={(e) => handleChange('title', e)}
+                                        />
                                     </div>
-                                    <div className="modal-body">
-                                        <div className="form-group">
-                                            <label className="label" htmlFor="title">
-                                                Title
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-sm input-sm"
-                                                id="title"
-                                                name="title"
-                                                value={this.state.model.title}
-                                                onChange={(e) => this.handleChange('title', e)}
+                                    <div className="form-group">
+                                        <label className="label" htmlFor="description">
+                                            Description
+                                        </label>
+                                        <textarea
+                                            rows="3"
+                                            className="form-control form-control-sm"
+                                            id="description"
+                                            name="description"
+                                            required
+                                            minLength="4"
+                                            value={model.description}
+                                            onChange={(e) => handleChange('description', e)}
+                                        ></textarea>
+                                    </div>
+                                    <div className="controlrow">
+                                        <div className="form-group dropdown">
+                                            <div className="caption">Kanban Board</div>
+                                            <CodeSelector
+                                                name="boardcode"
+                                                value={model.boardcode}
+                                                options={getSelectOptions('id', 'BOARD')}
+                                                onChange={handleChange}
                                             />
                                         </div>
-                                        <div className="form-group">
-                                            <label className="label" htmlFor="description">
-                                                Description
-                                            </label>
-                                            <textarea
-                                                rows="3"
-                                                className="form-control form-control-sm"
-                                                id="description"
-                                                name="description"
-                                                required
-                                                minLength="4"
-                                                value={this.state.model.description}
-                                                onChange={(e) => this.handleChange('description', e)}
-                                            ></textarea>
+                                        <div className="form-group dropdown">
+                                            <div className="caption">Project</div>
+                                            <CodeSelector
+                                                name="projectcode"
+                                                value={model.projectcode}
+                                                options={getSelectOptions('id', 'PROJECT')}
+                                                onChange={handleChange}
+                                            />
                                         </div>
-                                        <div className="controlrow">
-                                            <div className="form-group dropdown">
-                                                <div className="caption">Kanban Board</div>
-                                                <CodeSelector
-                                                    name="boardcode"
-                                                    value={this.state.model.boardcode}
-                                                    options={this.getSelectOptions('id', 'BOARD')}
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div>
-                                            <div className="form-group dropdown">
-                                                <div className="caption">Project</div>
-                                                <CodeSelector
-                                                    name="projectcode"
-                                                    value={this.state.model.projectcode}
-                                                    options={this.getSelectOptions('id', 'PROJECT')}
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div>
-                                            <div className="form-group dropdown">
-                                                <div className="caption">Priority</div>
-                                                <CodeSelector
-                                                    name="prioritycode"
-                                                    value={this.state.model.prioritycode}
-                                                    options={this.getSelectOptions('id', 'PRIORITY')}
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div>
-                                            <div className="form-group dropdown">
-                                                <div className="caption">Size</div>
-                                                <CodeSelector
-                                                    name="sizecode"
-                                                    value={this.state.model.sizecode}
-                                                    options={this.getSelectOptions('id', 'SIZE')}
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div>
-                                            <div className="form-group dropdown">
-                                                <div className="caption">Status</div>
-                                                <CodeSelector
-                                                    name="statuscode"
-                                                    value={this.state.model.statuscode}
-                                                    options={this.getSelectOptions('id', 'STATUS')}
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div>
-                                            <div className="form-group dropdown">
-                                                <div className="caption">Assigned To</div>
-                                                <CodeSelector
-                                                    name="assignedtouser"
-                                                    value={this.state.model.assignedtouser}
-                                                    options={this.getSelectOptions('id', 'ASSIGNED')}
-                                                    onChange={this.handleChange}
-                                                />
-                                            </div>
+                                        <div className="form-group dropdown">
+                                            <div className="caption">Priority</div>
+                                            <CodeSelector
+                                                name="prioritycode"
+                                                value={model.prioritycode}
+                                                options={getSelectOptions('id', 'PRIORITY')}
+                                                onChange={handleChange}
+                                            />
                                         </div>
-                                        <div className="form-group">
-                                            <label className="label" htmlFor="comments">
-                                                Comments
-                                            </label>
-                                            <textarea
-                                                rows="3"
-                                                className="form-control form-control-sm input-sm"
-                                                id="comments"
-                                                name="comments"
-                                                value={this.state.model.comments}
-                                                onChange={(e) => this.handleChange('comments', e)}
-                                            ></textarea>
+                                        <div className="form-group dropdown">
+                                            <div className="caption">Size</div>
+                                            <CodeSelector
+                                                name="sizecode"
+                                                value={model.sizecode}
+                                                options={getSelectOptions('id', 'SIZE')}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className="form-group dropdown">
+                                            <div className="caption">Status</div>
+                                            <CodeSelector
+                                                name="statuscode"
+                                                value={model.statuscode}
+                                                options={getSelectOptions('id', 'STATUS')}
+                                                onChange={handleChange}
+                                            />
+                                        </div>
+                                        <div className="form-group dropdown">
+                                            <div className="caption">Assigned To</div>
+                                            <CodeSelector
+                                                name="assignedtouser"
+                                                value={model.assignedtouser}
+                                                options={getSelectOptions('id', 'ASSIGNED')}
+                                                onChange={handleChange}
+                                            />
                                         </div>
                                     </div>
-                                    <div className="modal-footer">
-                                        <button
-                                            type="button"
-                                            className="btn btn-secondary"
-                                            onClick={this.closeModal}
-                                        >
-                                            Close
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={this.handleSave}
-                                        >
-                                            Save
-                                        </button>
+                                    <div className="form-group">
+                                        <label className="label" htmlFor="comments">
+                                            Comments
+                                        </label>
+                                        <textarea
+                                            rows="3"
+                                            className="form-control form-control-sm input-sm"
+                                            id="comments"
+                                            name="comments"
+                                            value={model.comments}
+                                            onChange={(e) => handleChange('comments', e)}
+                                        ></textarea>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={closeModal}>
+                                        Close
+                                    </button>
+                                    <button type="button" className="btn btn-primary" onClick={handleSave}>
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default ItemEditor;
