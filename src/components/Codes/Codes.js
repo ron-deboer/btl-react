@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 
 import CodeService from '../../_services/Codeservice';
@@ -7,10 +7,11 @@ import MessageBus from '../../_services/Messagebus';
 
 import './codes.scss';
 
-class Codes extends Component {
-    state = { codeService: CodeService.instance, loading: true };
-    codes = [];
-    columns = [
+const Codes = (props) => {
+    const [loading, setLoading] = useState(false);
+    const codeService = CodeService.instance;
+    let codes = [];
+    let columns = [
         {
             name: 'Id',
             selector: 'id',
@@ -49,19 +50,15 @@ class Codes extends Component {
         },
     ];
 
-    constructor(props) {
-        super(props);
-        this.handleEditClick = this.handleEditClick.bind(this);
-    }
-
-    componentDidMount() {
-        this.state.codeService.getAll().then((resp) => {
-            this.codes = resp;
-            this.setState({ loading: false });
+    // didMount
+    useEffect(() => {
+        codeService.getAll().then((resp) => {
+            codes = resp;
+            setLoading(new Date().getTime());
         });
-    }
+    }, []);
 
-    handleEditClick = (row) => {
+    const handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
         const code = this.codes.find((x) => x.id === id);
         const payload = {
@@ -71,14 +68,12 @@ class Codes extends Component {
         MessageBus.emit(AppConstants.MSG_OPEN_MODAL, payload);
     };
 
-    render() {
-        return (
-            <div className="codes-table">
-                <h5>Codes</h5>
-                <DataTable striped="true" columns={this.columns} data={this.codes} />
-            </div>
-        );
-    }
-}
+    return (
+        <div className="codes-table">
+            <h5>Codes</h5>
+            <DataTable striped="true" columns={this.columns} data={this.codes} />
+        </div>
+    );
+};
 
 export default Codes;
