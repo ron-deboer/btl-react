@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 
 import ItemService from '../../_services/Itemservice';
 
-class Reports extends Component {
-    state = { itemService: ItemService.instance, loading: true };
-    items = [];
-    columns = [
+const Reports = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [items, setItems] = useState([]);
+    const itemService = ItemService.instance;
+    const columns = [
         {
             name: 'Id',
             selector: 'id',
@@ -43,21 +44,20 @@ class Reports extends Component {
             sortable: true,
         },
     ];
-    componentDidMount() {
-        this.state.itemService.getAll().then((resp) => {
-            this.items = resp;
-            this.setState({ loading: false });
-        });
-    }
 
-    render() {
-        return (
-            <div>
-                <h5>Reports</h5>
-                <DataTable striped="true" columns={this.columns} data={this.items} />
-            </div>
-        );
-    }
-}
+    // didMount
+    useEffect(() => {
+        itemService.getAll().then((resp) => {
+            setItems(resp);
+        });
+    }, []);
+
+    return (
+        <div>
+            <h5>Reports</h5>
+            <DataTable striped="true" columns={columns} data={items} />
+        </div>
+    );
+};
 
 export default Reports;
