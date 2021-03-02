@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 
 import UserService from '../../_services/Userservice';
@@ -7,10 +7,11 @@ import MessageBus from '../../_services/Messagebus';
 
 import './users.scss';
 
-class Users extends Component {
-    state = { userService: UserService.instance, loading: true };
-    users = [];
-    columns = [
+const Users = (props) => {
+    const [loading, setLoading] = useState(false);
+    const [users, setUsers] = useState([]);
+    const userService = UserService.instance;
+    const columns = [
         {
             name: 'Id',
             selector: 'id',
@@ -42,7 +43,7 @@ class Users extends Component {
                 <button
                     className="btn-edit"
                     onClick={(e) => {
-                        this.handleEditClick(row);
+                        handleEditClick(row);
                     }}
                 >
                     <i className="fa fa-pencil fa-xs"></i>
@@ -54,21 +55,16 @@ class Users extends Component {
         },
     ];
 
-    constructor(props) {
-        super(props);
-        this.handleEditClick = this.handleEditClick.bind(this);
-    }
-
-    componentDidMount() {
-        this.state.userService.getAll().then((resp) => {
-            this.users = resp;
-            this.setState({ loading: false });
+    // didMount
+    useEffect(() => {
+        userService.getAll().then((resp) => {
+            setUsers(resp);
         });
-    }
+    }, []);
 
-    handleEditClick = (row) => {
+    const handleEditClick = (row) => {
         const id = parseInt(row.id, 10);
-        const user = this.users.find((x) => x.id === id);
+        const user = users.find((x) => x.id === id);
         const payload = {
             target: 'usereditor',
             data: user,
@@ -76,14 +72,12 @@ class Users extends Component {
         MessageBus.emit(AppConstants.MSG_OPEN_MODAL, payload);
     };
 
-    render() {
-        return (
-            <div className="users-table">
-                <h5>Users</h5>
-                <DataTable striped="true" columns={this.columns} data={this.users} />
-            </div>
-        );
-    }
-}
+    return (
+        <div className="users-table">
+            <h5>Users</h5>
+            <DataTable striped="true" columns={columns} data={users} />
+        </div>
+    );
+};
 
 export default Users;
