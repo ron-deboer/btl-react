@@ -20,8 +20,8 @@ const App = (props) => {
             <Header />
             <Router />
             <ItemEditor />
-            <CodeEditor />
             <UserEditor />
+            <CodeEditor />
         </div>
     );
 };

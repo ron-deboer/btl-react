@@ -11,45 +11,48 @@ $fontsize: 1.5vh;
     transition: transform 0.3s ease-out;
     font-size: $fontsize;
 
-    .modal-content {
+    .modal-content-codes {
         border: 0;
         padding: 10px 20px;
+        .modal-header {
+            color: maroon;
+        }
         .modal-body {
-            .dropdown {
-                width: 30%;
-                margin-right: 2vw;
-                text-align: left;
-            }
-
             .form-group {
                 font-size: $fontsize;
                 padding: 0;
                 margin: 8px 0px 0px 0px;
-            }
-            .label {
-                font-size: $fontsize;
-                color: #444;
-                margin: 2px 0px;
-            }
-            .form-control {
-                font-size: $fontsize;
-                color: maroon;
-            }
-            input,
-            textarea,
-            select {
-                color: maroon;
-                font-size: $fontsize;
-                padding: 2px;
-                background-color: #ffe;
-            }
-            input:focus,
-            textarea:focus,
-            select:focus {
-                outline: none;
-            }
-            .disabled {
-                background-color: #eee;
+
+                .label {
+                    font-size: $fontsize;
+                    color: #444;
+                    margin: 2px 0px;
+                }
+                .form-control {
+                    font-size: $fontsize;
+                    color: maroon;
+                }
+                input,
+                textarea,
+                select {
+                    color: maroon;
+                    font-size: $fontsize;
+                    padding: 2px;
+                    background-color: #ffe;
+                }
+                input:focus,
+                textarea:focus,
+                select:focus {
+                    outline: none;
+                }
+                .disabled {
+                    background-color: #eee;
+                }
+                .dropdown {
+                    width: 40%;
+                    margin-right: 2vw;
+                    text-align: left;
+                }
             }
         }
     }
