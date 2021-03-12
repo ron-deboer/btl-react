@@ -1,10 +1,11 @@
-.item-card {
+.card-container {
+    width: 90%;
     border-radius: 4px;
     box-shadow: 2px 2px #ccc;
     margin-bottom: 10px;
     background-color: #fff;
-    padding: 10px 20px;
-    font-size: 0.7vw;
+    padding: 5px 15px;
+
     .item-card-body {
         padding: 0;
         .item-card-header {
@@ -14,6 +15,7 @@
             display: grid;
             grid-template-columns: 90% auto;
             .title {
+                font-size: 1.1vh;
                 padding: 0;
                 .id {
                     color: #788;
@@ -38,7 +40,7 @@
             }
         }
         .item-card-text {
-            padding: 10px 0px;
+            padding: 5px 0px;
             font-weight: 400;
             color: #b84;
             .codes {
@@ -46,7 +48,7 @@
                 flex-wrap: wrap;
                 .code {
                     border: 1px solid #ddd;
-                    font-size: 1.1vh;
+                    font-size: 0.9vh;
                     text-align: center;
                     text-transform: uppercase;
                     padding: 4px;
