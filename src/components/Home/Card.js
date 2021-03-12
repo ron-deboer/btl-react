@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import AppConstants from '../../appconstants';
 import MessageBus from '../../_services/Messagebus';
 
+import './card.scss';
+
 class Card extends Component {
     state = {};
 
