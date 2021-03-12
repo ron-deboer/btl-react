@@ -1,32 +1,30 @@
-$font-size: 1vw;
-$font-size-select: 0.75vw;
-$font-size-column-title: 0.75vw;
-.column {
+$font-size: 1vh;
+$font-size-select: 0.75vh;
+$font-size-column-title: 1.5vh;
+.column-container {
     height: calc(100vh - 120px);
-    overflow: hidden;
-    .header {
+    overflow-y: hidden;
+    .ccheader {
+        width: 90%;
         font-size: $font-size-column-title;
         display: grid;
-        grid-template-columns: 90% auto;
-        padding: 10px 20px;
-        font-weight: 600;
+        grid-template-columns: 1fr 10%;
+        padding: 0px 5px;
         .title {
         }
-        .btn-edit {
-            line-height: $font-size-column-title;
-            font-size: $font-size-column-title;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #d93;
-            color: white;
-            .icon {
+        .newitem {
+            .btn-edit {
                 line-height: $font-size-column-title;
                 font-size: $font-size-column-title;
+                cursor: pointer;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #d93;
+                color: white;
             }
-        }
-        .btn-edit:focus {
-            outline: 0;
+            .btn-edit:focus {
+                outline: 0;
+            }
         }
     }
     .itemlist {
@@ -36,9 +34,9 @@ $font-size-column-title: 0.75vw;
         .items {
             list-style-type: none;
             margin: 5px;
-            padding: 0px 10px;
+            padding: 0px 0px;
             font-size: $font-size;
             font-weight: 600;
         }
     }
-}        
+}

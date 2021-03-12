@@ -54,7 +54,7 @@ class Card extends Component {
 
     render() {
         return (
-            <div className="item-card">
+            <div className="card-container">
                 <div className="item-card-body">
                     <div className="item-card-header">
                         <div className="title">

@@ -20,12 +20,14 @@ const Column = (props) => {
     };
 
     return (
-        <div className="column">
-            <div className="header">
+        <div className="column-container">
+            <div className="ccheader">
                 <div className="title">{props.title} Items</div>
-                <button className="btn-edit" onClick={handleAddItem}>
-                    <i className="fa fa-plus fa-xs icon"></i>
-                </button>
+                <div className="newitem">
+                    <button className="btn-edit" onClick={handleAddItem}>
+                        <i className="fa fa-plus fa-xs icon"></i>
+                    </button>
+                </div>
             </div>
             <div className="itemlist">
                 <ul className="open-items items">
