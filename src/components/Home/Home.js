@@ -5,7 +5,6 @@ import SelectCode from './Selectcode';
 import withAppStore from '../../_store/withappstore';
 
 import './home.scss';
-import './card.scss';
 
 const Home = (props) => {
     const [boardcode, setBoardCode] = useState('Dev');

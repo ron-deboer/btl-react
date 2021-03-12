@@ -6,6 +6,8 @@ import MessageBus from '../../_services/Messagebus';
 
 import Card from './Card';
 
+import './column.scss';
+
 const Column = (props) => {
     const handleAddItem = () => {
         const payload = {
@@ -25,13 +27,15 @@ const Column = (props) => {
                     <i className="fa fa-plus fa-xs icon"></i>
                 </button>
             </div>
-            <ul className="open-items items">
-                {props.items.map((card, i) => (
-                    <li key={card.id}>
-                        <Card item={card} />
-                    </li>
-                ))}
-            </ul>
+            <div className="itemlist">
+                <ul className="open-items items">
+                    {props.items.map((card, i) => (
+                        <li key={card.id}>
+                            <Card item={card} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
