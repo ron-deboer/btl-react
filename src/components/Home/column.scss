@@ -1,21 +1,18 @@
-$font-size: 1vh;
-$font-size-select: 0.75vh;
-$font-size-column-title: 1.8vh;
+$font-size: 1.2vh;
 .column-container {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 130px);
     overflow-y: hidden;
     .ccheader {
-        width: 100%;
-        font-size: $font-size-column-title;
-        display: grid;
-        grid-template-columns: 1fr 10%;
-        padding: 5px 10px;
-        .title {
-        }
+        width: 95%;
+        font-size: $font-size;
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        border: 0px dotted red;
         .newitem {
             .btn-edit {
-                line-height: $font-size-column-title;
-                font-size: $font-size-column-title;
+                line-height: $font-size;
+                font-size: $font-size;
                 cursor: pointer;
                 border: 1px solid #ccc;
                 border-radius: 4px;

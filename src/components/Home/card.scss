@@ -8,14 +8,15 @@
 
     .item-card-body {
         padding: 0;
+        font-size: 1.1vh;
+        line-height: 2.1vh;
         .item-card-header {
-            border: 0px solid #eee;
+            border: 0px dotted red;
             color: #b84;
             padding: 0;
-            display: grid;
-            grid-template-columns: 90% auto;
+            display: flex;
+            justify-content: space-between;
             .title {
-                font-size: 1.1vh;
                 padding: 0;
                 .id {
                     color: #788;
@@ -26,13 +27,8 @@
                 cursor: pointer;
                 .btn-edit {
                     background-color: #fff;
-                    line-height: 16px;
                     border: 0;
                     vertical-align: top;
-                }
-                .icon {
-                    font-size: 16px;
-                    font-weight: 600;
                 }
                 .btn-edit:focus {
                     outline: 0;
