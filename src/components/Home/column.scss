@@ -1,15 +1,15 @@
 $font-size: 1vh;
 $font-size-select: 0.75vh;
-$font-size-column-title: 1.5vh;
+$font-size-column-title: 1.8vh;
 .column-container {
     height: calc(100vh - 120px);
     overflow-y: hidden;
     .ccheader {
-        width: 90%;
+        width: 100%;
         font-size: $font-size-column-title;
         display: grid;
         grid-template-columns: 1fr 10%;
-        padding: 0px 5px;
+        padding: 5px 10px;
         .title {
         }
         .newitem {
@@ -28,7 +28,7 @@ $font-size-column-title: 1.5vh;
         }
     }
     .itemlist {
-        height: calc(100% - 120px);
+        height: calc(100% - 20px);
         overflow-x: hidden;
         overflow-y: auto;
         .items {
