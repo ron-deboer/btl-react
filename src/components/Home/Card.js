@@ -67,7 +67,7 @@ class Card extends Component {
                                     this.handleEditClick();
                                 }}
                             >
-                                <span className="icon">...</span>
+                                <span className="icon">. . .</span>
                             </button>
                         </div>
                     </div>
